@@ -116,7 +116,7 @@ local theme = lush(function()
     -- VertSplit    { }, -- the column separating vertically split windows
     Folded       {bg = cyan_dark, fg = fg_light}, -- line used for closed folds
     -- FoldColumn   { }, -- 'foldcolumn'
-    -- SignColumn   { }, -- column where |signs| are displayed
+    SignColumn   {fg = 'NONE'}, -- column where |signs| are displayed
     LineNr       {fg = dash_dark}, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
     CursorLineNr {fg = dash, gui = 'bold'}, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
     MatchParen   {fg = orange}, -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
@@ -124,7 +124,6 @@ local theme = lush(function()
     -- MsgArea      { }, -- Area for messages and cmdline
     -- MsgSeparator {fg = fg}, -- Separator for scrolled messages, `msgsep` flag of 'display'
     -- MoreMsg      { }, -- |more-prompt|
-    -- NonText      { }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
     Normal       {fg = fg, bg = 'NONE'}, -- normal text
     NormalFloat  {fg = Normal.fg, bg = bg_dark}, -- Normal text in floating windows.
     NormalNC     {fg = Normal.fg, bg = bg_dark}, -- normal text in non-current windows
@@ -152,6 +151,7 @@ local theme = lush(function()
     -- VisualNOS    {}, -- Visual mode selection when vim is "Not Owning the Selection".
     WarningMsg   {fg = yellow, gui = 'bold'}, -- warning messages
     Whitespace   {fg = dash_dark}, -- "nbsp", "space", "tab" and "trail" in 'listchars'
+    NonText      {Whitespace}, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
     WildMenu     {PmenuSel}, -- current match in 'wildmenu' completion
 
     -- These groups are not listed as default vim groups,
@@ -206,6 +206,18 @@ local theme = lush(function()
     Error          {ErrorMsg}, -- (preferred) any erroneous construct
     Todo           {fg = fg_light, gui = 'bold'}, -- (preferred) anything that needs extra attention; mostly the keywords TODO FIXME and XXX
 
+    GitSignsAdd {fg = green},
+    GitSignsAddNr {GitSignsAdd},
+    GitSignsAddLn {fg = 'NONE', bg = green_dark},
+
+    GitSignsChange {fg = blue_light},
+    GitSignsChangeNr {GitSignsChange},
+    GitSignsChangeLn {fg = 'NONE', bg = blue_dark},
+
+    GitSignsDelete {fg = red_desat},
+    GitSignsDeleteNr {GitSignsDelete},
+    GitSignsDeleteLn {fg = 'NONE', bg = red_dark},
+
     -- These groups are for the native LSP client. Some other LSP clients may
     -- use these groups, or use their own. Consult your LSP client's
     -- documentation.
@@ -234,10 +246,10 @@ local theme = lush(function()
     -- LspDiagnosticsFloatingInformation    { }, -- Used to color "Information" diagnostic messages in diagnostics float
     -- LspDiagnosticsFloatingHint           { }, -- Used to color "Hint" diagnostic messages in diagnostics float
 
-    -- LspDiagnosticsSignError              { }, -- Used for "Error" signs in sign column
-    -- LspDiagnosticsSignWarning            { }, -- Used for "Warning" signs in sign column
-    -- LspDiagnosticsSignInformation        { }, -- Used for "Information" signs in sign column
-    -- LspDiagnosticsSignHint               { }, -- Used for "Hint" signs in sign column
+    LspDiagnosticsSignError              {fg = red}, -- Used for "Error" signs in sign column
+    LspDiagnosticsSignWarning            {fg = yellow}, -- Used for "Warning" signs in sign column
+    LspDiagnosticsSignInformation        {fg = blue_light}, -- Used for "Information" signs in sign column
+    LspDiagnosticsSignHint               {Normal}, -- Used for "Hint" signs in sign column
 
     -- These groups are for the neovim tree-sitter highlights.
     -- As of writing, tree-sitter support is a WIP, group names may change.
