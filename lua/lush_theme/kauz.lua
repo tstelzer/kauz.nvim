@@ -54,6 +54,7 @@ local bg            = hsl('#1e1e1e')
 local bg_lighter    = bg.lighten(25)
 local bg_light      = bg.lighten(5)
 local bg_dark       = bg.darken(15)
+local bg_darker     = bg.darken(40)
 local black         = hsl('#000000')
 
 local cyan          = hsl('#00F4FF')
@@ -130,7 +131,7 @@ local theme = lush(function()
     -- MsgSeparator {fg = fg}, -- Separator for scrolled messages, `msgsep` flag of 'display'
     -- MoreMsg      { }, -- |more-prompt|
     Normal       {fg = fg, bg = 'NONE'}, -- normal text
-    NormalFloat  {fg = Normal.fg, bg = bg_dark}, -- Normal text in floating windows.
+    NormalFloat  {fg = Normal.fg, bg = bg_darker}, -- Normal text in floating windows.
     NormalNC     {fg = Normal.fg, bg = bg_dark}, -- normal text in non-current windows
     Pmenu        {fg = fg_light, bg = bg_light}, -- Popup menu: normal item.
     PmenuSel     {fg = magenta, bg = Pmenu.bg}, -- Popup menu: selected item.
