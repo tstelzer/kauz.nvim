@@ -59,7 +59,7 @@ local black         = hsl('#000000')
 local cyan          = hsl('#00F4FF')
 local cyan_dark     = cyan.darken(50)
 local cyan_light    = cyan.lighten(40)
-local yellow        = cyan.rotate(-120)
+local yellow        = cyan.rotate(-120).desaturate(30)
 local yellow_dark   = yellow.darken(50)
 local yellow_light  = yellow.lighten(40)
 local magenta       = cyan.rotate(120)
@@ -69,6 +69,7 @@ local magenta_light = magenta.lighten(40)
 local orange        = hsl('#FF7600')
 
 local red           = hsl('#FB0101')
+local red_light     = red.lighten(20)
 local red_desat     = red.desaturate(60)
 local red_dark      = hsl('#621d29')
 local green         = hsl('#6A9955')
@@ -81,7 +82,7 @@ local blue_light    = blue.lighten(40)
 local gray_warm     = orange.darken(15).desaturate(85)
 local gray_cold     = blue_light.darken(34).desaturate(70)
 
-local variable      = orange.desaturate(50).lighten(20)
+local highlight      = orange.desaturate(50).lighten(20)
 local dash          = gray
 local dash_light    = dash.lighten(40)
 local fade          = dash.darken(50)
@@ -112,12 +113,12 @@ local theme = lush(function()
     DiffAdd      {fg = 'NONE', bg = green_dark, gui = 'nocombine'}, -- diff mode: Added line |diff.txt|
     DiffChange   {fg = 'NONE', bg = blue_dark, gui = 'nocombine'}, -- diff mode: Changed line |diff.txt|
     DiffDelete   {fg = 'NONE', bg = red_dark, gui = 'nocombine'}, -- diff mode: Deleted line |diff.txt|
-    -- DiffText     { }, -- diff mode: Changed text within a changed line |diff.txt|
+    DiffText     { }, -- diff mode: Changed text within a changed line |diff.txt|
     -- EndOfBuffer  { }, -- filler lines (~) after the end of the buffer.  By default, this is highlighted like |hl-NonText|.
     -- TermCursor   { }, -- cursor in a focused terminal
     -- TermCursorNC { }, -- cursor in an unfocused terminal
     ErrorMsg     {fg = red, gui = 'bold'}, -- error messages on the command line
-    -- VertSplit    { }, -- the column separating vertically split windows
+    VertSplit    {fg = dash}, -- the column separating vertically split windows
     Folded       {bg = cyan_dark, fg = fg_light}, -- line used for closed folds
     -- FoldColumn   { }, -- 'foldcolumn'
     SignColumn   {fg = 'NONE'}, -- column where |signs| are displayed
@@ -137,20 +138,20 @@ local theme = lush(function()
     -- PmenuThumb   { }, -- Popup menu: Thumb of the scrollbar.
     -- Question     { }, -- |hit-enter| prompt and yes/no questions
     -- QuickFixLine { }, -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
-    Search       {bg = magenta, fg = black}, -- Last search pattern highlighting (see 'hlsearch').  Also used for similar items that need to stand out.
-    IncSearch    {Search, bg = magenta_light}, -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
-    -- Substitute   { }, -- |:substitute| replacement text highlighting
+    IncSearch    {bg = orange, fg = black, gui = 'bold'}, -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
+    Search       {bg = orange.desaturate(60), fg = black, gui = 'NONE'}, -- Last search pattern highlighting (see 'hlsearch').  Also used for similar items that need to stand out.
+    Substitute   {IncSearch}, -- |:substitute| replacement text highlighting
     -- SpecialKey   { }, -- Unprintable characters: text displayed differently from what it really is.  But not 'listchars' whitespace. |hl-Whitespace|
-    -- SpellBad     { }, -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise. 
-    -- SpellCap     { }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
-    -- SpellLocal   { }, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
-    -- SpellRare    { }, -- Word that is recognized by the spellchecker as one that is hardly ever used.  |spell| Combined with the highlighting used otherwise.
+    SpellBad     {fg = red_light}, -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise. 
+    SpellCap     {fg = cyan}, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
+    SpellLocal   {fg = cyan_light}, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
+    SpellRare    {fg = magenta_light}, -- Word that is recognized by the spellchecker as one that is hardly ever used.  |spell| Combined with the highlighting used otherwise.
     StatusLine   {bg = bg_light}, -- status line of current window
     StatusLineNC {bg = bg_light}, -- status lines of not-current windows Note: if this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
     TabLine      {fg = Normal.fg, bg = bg_light}, -- tab pages line, not active tab page label
     TabLineFill  {TabLine}, -- tab pages line, where there are no labels
     TabLineSel   {TabLine}, -- tab pages line, active tab page label
-    -- Title        { }, -- titles for output from ":set all", ":autocmd" etc.
+    Title        {fg = fg_light, gui = 'bold'}, -- titles for output from ":set all", ":autocmd" etc.
     Visual       {bg = blue, fg = 'NONE'}, -- Visual mode selection
     -- VisualNOS    {}, -- Visual mode selection when vim is "Not Owning the Selection".
     WarningMsg   {fg = yellow, gui = 'bold'}, -- warning messages
@@ -171,7 +172,7 @@ local theme = lush(function()
     Float          {Number}, --    a floating point constant: 2.3e10
     Boolean        {fg = String.fg.rotate(-50), gui = 'bold'}, --  a boolean constant: TRUE, false
 
-    Identifier     {}, -- (preferred) any variable name
+    Identifier     {Normal}, -- (preferred) any variable name
     -- Function       {}, -- function name (also: methods for classes)
 
     Statement      {fg = dash}, -- (preferred) any statement
@@ -210,13 +211,12 @@ local theme = lush(function()
     Error          {ErrorMsg}, -- (preferred) any erroneous construct
     Todo           {fg = fg_light, gui = 'bold'}, -- (preferred) anything that needs extra attention; mostly the keywords TODO FIXME and XXX
 
-    diff {Normal},
     diffLine {Normal},
     diffAdded {fg = 'NONE', bg = green_dark},
     diffRemoved {fg = 'NONE', bg = red_dark},
     diffChanged {fg = 'NONE', bg = blue_dark},
 
-    gitCommitDiff {diff},
+    gitCommitDiff {DiffText},
 
     GitSignsAdd {fg = green},
     GitSignsAddNr {GitSignsAdd},
@@ -287,7 +287,7 @@ local theme = lush(function()
     -- TSFuncBuiltin        { };    -- For builtin functions: `table.insert` in Lua.
     -- TSFuncMacro          { };    -- For macro defined fuctions (calls and definitions): each `macro_rules` in Rust.
     TSInclude            {Statement};    -- For includes: `#include` in C, `use` or `extern crate` in Rust, or `require` in Lua.
-    TSKeyword            {fg = red_desat};    -- For keywords that don't fall in previous categories.
+    -- TSKeyword            {};    -- For keywords that don't fall in previous categories.
     -- TSKeywordFunction    { };    -- For keywords used to define a fuction.
     -- TSLabel              { };    -- For labels: `label:` in C and `:label:` in Lua.
     -- TSMethod             {};    -- For method calls and definitions.
@@ -297,7 +297,7 @@ local theme = lush(function()
     -- TSOperator           { };    -- For any operator: `+`, but also `->` and `*` in C.
     -- TSParameter          { };    -- For parameters of a function.
     -- TSParameterReference { };    -- For references to parameters of a function.
-    -- TSProperty           { };    -- Same as `TSField`.
+    TSProperty           {Normal};    -- Same as `TSField`.
     -- TSPunctDelimiter     { };    -- For delimiters ie: `.`
     -- TSPunctBracket       {};    -- For brackets and parens.
     -- TSPunctSpecial       {};    -- For special punctutation that does not fall in the catagories before.
@@ -308,8 +308,8 @@ local theme = lush(function()
     -- TSSymbol             { };    -- For identifiers referring to symbols or atoms.
     -- TSType               { };    -- For types.
     -- TSTypeBuiltin        { };    -- For builtin types.
-    -- TSVariable           {};    -- Any variable name that does not have another highlight.
-    -- TSVariableBuiltin    { };    -- Variable names that are defined by the languages, like `this` or `self`.
+    TSVariable           {};    -- Any variable name that does not have another highlight.
+    -- TSVariableBuiltin    {};    -- Variable names that are defined by the languages, like `this` or `self`.
 
     -- TSTag                { };    -- Tags like html tag names.
     -- TSTagDelimiter       { };    -- Tag delimiter like `<` `>` `/`
@@ -320,7 +320,6 @@ local theme = lush(function()
     -- TSTitle              { };    -- Text that is part of a title.
     -- TSLiteral            { };    -- Literal text.
     -- TSURI                { };    -- Any URI like a link or email.
-
   }
 end)
 
