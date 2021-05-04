@@ -46,9 +46,9 @@ local lush = require('lush')
 local hsl = lush.hsl
 
 local white         = hsl('#ffffff')
-local fg            = hsl('#d4d4d4')
-local fg_light      = fg.lighten(5)
-local fg_dark       = fg.darken(2)
+local fg            = hsl('#dcdcdc')
+local fg_light      = hsl('#fefefe')
+local fg_dark       = hsl('#cccccc')
 local gray          = hsl('#808080')
 local bg            = hsl('#1e1e1e')
 local bg_lighter    = bg.lighten(25)
@@ -69,7 +69,7 @@ local magenta_light = magenta.lighten(40)
 local orange        = hsl('#FF7600')
 
 local red           = hsl('#FB0101')
-local red_desat     = hsl('#b95c6c')
+local red_desat     = red.desaturate(60)
 local red_dark      = hsl('#621d29')
 local green         = hsl('#6A9955')
 local green_dark    = green.darken(50)
@@ -287,7 +287,7 @@ local theme = lush(function()
     -- TSFuncBuiltin        { };    -- For builtin functions: `table.insert` in Lua.
     -- TSFuncMacro          { };    -- For macro defined fuctions (calls and definitions): each `macro_rules` in Rust.
     TSInclude            {Statement};    -- For includes: `#include` in C, `use` or `extern crate` in Rust, or `require` in Lua.
-    -- TSKeyword            { };    -- For keywords that don't fall in previous categories.
+    TSKeyword            {fg = red_desat};    -- For keywords that don't fall in previous categories.
     -- TSKeywordFunction    { };    -- For keywords used to define a fuction.
     -- TSLabel              { };    -- For labels: `label:` in C and `:label:` in Lua.
     -- TSMethod             {};    -- For method calls and definitions.
