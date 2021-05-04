@@ -47,14 +47,14 @@ local hsl = lush.hsl
 
 local white         = hsl('#ffffff')
 local fg            = hsl('#d4d4d4')
-local fg_light      = hsl('#fefefe')
+local fg_light      = fg.lighten(5)
 local fg_dark       = fg.darken(2)
-local black         = hsl('#000000')
+local gray          = hsl('#808080')
 local bg            = hsl('#1e1e1e')
 local bg_lighter    = bg.lighten(25)
 local bg_light      = bg.lighten(5)
 local bg_dark       = bg.darken(15)
-local neutral       = hsl('#808080')
+local black         = hsl('#000000')
 
 local cyan          = hsl('#00F4FF')
 local cyan_dark     = cyan.darken(50)
@@ -73,14 +73,18 @@ local red_desat     = hsl('#b95c6c')
 local red_dark      = hsl('#621d29')
 local green         = hsl('#6A9955')
 local green_dark    = green.darken(50)
-local green_light   = green.lighten(40)
+local green_light   = green.lighten(30).saturate(5)
 local blue          = hsl('#264f78')
 local blue_dark     = blue.darken(50)
 local blue_light    = blue.lighten(40)
 
-local dash          = neutral
+local gray_warm     = orange.darken(15).desaturate(85)
+local gray_cold     = blue_light.darken(34).desaturate(70)
+
+local variable      = orange.desaturate(50).lighten(20)
+local dash          = gray
 local dash_light    = dash.lighten(40)
-local dash_dark     = dash.darken(50)
+local fade          = dash.darken(50)
 
 local theme = lush(function()
   return {
@@ -96,14 +100,14 @@ local theme = lush(function()
     -- styling for that group (meaning they mostly get styled as Normal)
     -- or leave them commented to apply vims default colouring or linking.
 
-    Comment      {fg = neutral}, -- any comment
-    ColorColumn  {bg = dash_dark}, -- used for the columns set with 'colorcolumn'
+    Comment      {fg = gray_warm}, -- any comment
+    ColorColumn  {bg = fade}, -- used for the columns set with 'colorcolumn'
     -- Conceal      { }, -- placeholder characters substituted for concealed text (see 'conceallevel')
     Cursor       {fg = fg, bg = bg, gui = 'reverse'}, -- character under the cursor
     lCursor      {Cursor}, -- the character under the cursor when |language-mapping| is used (see 'guicursor')
     CursorIM     {Cursor}, -- like Cursor, but used when in IME mode |CursorIM|
-    -- CursorColumn { }, -- Screen-column at the cursor, when 'cursorcolumn' is set.
-    -- CursorLine   { }, -- Screen-line at the cursor, when 'cursorline' is set.  Low-priority if foreground (ctermfg OR guifg) is not set.
+    CursorLine   {fg = 'NONE', bg = bg.lighten(5)}, -- Screen-line at the cursor, when 'cursorline' is set.  Low-priority if foreground (ctermfg OR guifg) is not set.
+    CursorColumn {CursorLine}, -- Screen-column at the cursor, when 'cursorcolumn' is set.
     -- Directory    { }, -- directory names (and other special names in listings)
     DiffAdd      {fg = 'NONE', bg = green_dark, gui = 'nocombine'}, -- diff mode: Added line |diff.txt|
     DiffChange   {fg = 'NONE', bg = blue_dark, gui = 'nocombine'}, -- diff mode: Changed line |diff.txt|
@@ -117,9 +121,9 @@ local theme = lush(function()
     Folded       {bg = cyan_dark, fg = fg_light}, -- line used for closed folds
     -- FoldColumn   { }, -- 'foldcolumn'
     SignColumn   {fg = 'NONE'}, -- column where |signs| are displayed
-    LineNr       {fg = dash_dark}, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
+    LineNr       {fg = fade}, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
     CursorLineNr {fg = dash, gui = 'bold'}, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
-    MatchParen   {fg = orange}, -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
+    MatchParen   {fg = cyan}, -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
     -- ModeMsg      { }, -- 'showmode' message (e.g., "-- INSERT -- ")
     -- MsgArea      { }, -- Area for messages and cmdline
     -- MsgSeparator {fg = fg}, -- Separator for scrolled messages, `msgsep` flag of 'display'
@@ -128,13 +132,13 @@ local theme = lush(function()
     NormalFloat  {fg = Normal.fg, bg = bg_dark}, -- Normal text in floating windows.
     NormalNC     {fg = Normal.fg, bg = bg_dark}, -- normal text in non-current windows
     Pmenu        {fg = fg_light, bg = bg_light}, -- Popup menu: normal item.
-    PmenuSel     {fg = orange, bg = Pmenu.bg}, -- Popup menu: selected item.
+    PmenuSel     {fg = magenta, bg = Pmenu.bg}, -- Popup menu: selected item.
     -- PmenuSbar    { }, -- Popup menu: scrollbar.
     -- PmenuThumb   { }, -- Popup menu: Thumb of the scrollbar.
     -- Question     { }, -- |hit-enter| prompt and yes/no questions
     -- QuickFixLine { }, -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
-    Search       {bg = orange, fg = bg_dark}, -- Last search pattern highlighting (see 'hlsearch').  Also used for similar items that need to stand out.
-    -- IncSearch    { }, -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
+    Search       {bg = magenta, fg = black}, -- Last search pattern highlighting (see 'hlsearch').  Also used for similar items that need to stand out.
+    IncSearch    {Search, bg = magenta_light}, -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
     -- Substitute   { }, -- |:substitute| replacement text highlighting
     -- SpecialKey   { }, -- Unprintable characters: text displayed differently from what it really is.  But not 'listchars' whitespace. |hl-Whitespace|
     -- SpellBad     { }, -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise. 
@@ -150,7 +154,7 @@ local theme = lush(function()
     Visual       {bg = blue, fg = 'NONE'}, -- Visual mode selection
     -- VisualNOS    {}, -- Visual mode selection when vim is "Not Owning the Selection".
     WarningMsg   {fg = yellow, gui = 'bold'}, -- warning messages
-    Whitespace   {fg = dash_dark}, -- "nbsp", "space", "tab" and "trail" in 'listchars'
+    Whitespace   {fg = fade}, -- "nbsp", "space", "tab" and "trail" in 'listchars'
     NonText      {Whitespace}, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
     WildMenu     {PmenuSel}, -- current match in 'wildmenu' completion
 
@@ -160,22 +164,22 @@ local theme = lush(function()
     -- default,
     -- Uncomment and edit if you want more specific syntax highlighting.
 
-    Constant       {Normal, gui = 'bold'}, -- (preferred) any constant
-    -- String         { }, --   a string constant: "this is a string"
-    -- Character      { }, --  a character constant: 'c', '\n'
-    -- Number         { }, --   a number constant: 234, 0xff
-    -- Boolean        { }, --  a boolean constant: TRUE, false
-    -- Float          { }, --    a floating point constant: 2.3e10
+    Constant       {}, -- (preferred) any constant
+    String         {fg = green_light, bg = Normal.bg}, --   a string constant: "this is a string"
+    Character      {String}, --  a character constant: 'c', '\n'
+    Number         {fg = String.fg.rotate(50), gui = 'bold'}, --   a number constant: 234, 0xff
+    Float          {Number}, --    a floating point constant: 2.3e10
+    Boolean        {fg = String.fg.rotate(-50), gui = 'bold'}, --  a boolean constant: TRUE, false
 
-    Identifier     {Normal}, -- (preferred) any variable name
-    -- Function       { }, -- function name (also: methods for classes)
+    Identifier     {}, -- (preferred) any variable name
+    -- Function       {}, -- function name (also: methods for classes)
 
-    Statement      {Normal}, -- (preferred) any statement
+    Statement      {fg = dash}, -- (preferred) any statement
     -- Conditional    { }, --  if, then, else, endif, switch, etc.
     -- Repeat         { }, --   for, do, while, etc.
     -- Label          { }, --    case, default, etc.
     -- Operator       { }, -- "sizeof", "+", "*", etc.
-    -- Keyword        { }, --  any other keyword
+    -- Keyword        {}, --  any other keyword
     -- Exception      { }, --  try, catch, throw
 
     PreProc        {Normal}, -- (preferred) generic Preprocessor
@@ -184,15 +188,15 @@ local theme = lush(function()
     -- Macro          { }, --    same as Define
     -- PreCondit      { }, --  preprocessor #if, #else, #endif, etc.
 
-    Type           {Normal}, -- (preferred) int, long, char, etc.
+    Type           {fg = blue_light}, -- (preferred) int, long, char, etc.
     -- StorageClass   { }, -- static, register, volatile, etc.
     -- Structure      { }, --  struct, union, enum, etc.
     -- Typedef        { }, --  A typedef
 
-    Special        {Normal}, -- (preferred) any special symbol
-    -- SpecialChar    { }, --  special character in a constant
+    Special        {}, -- (preferred) any special symbol
+    SpecialChar    {fg = magenta_light.desaturate(70)}, --  special character in a constant
     -- Tag            { }, --    you can use CTRL-] on this
-    -- Delimiter      { }, --  character that needs attention
+    Delimiter      {fg = dash}, --  character that needs attention
     -- SpecialComment { }, -- special things inside a comment
     -- Debug          { }, --    debugging statements
 
@@ -206,17 +210,25 @@ local theme = lush(function()
     Error          {ErrorMsg}, -- (preferred) any erroneous construct
     Todo           {fg = fg_light, gui = 'bold'}, -- (preferred) anything that needs extra attention; mostly the keywords TODO FIXME and XXX
 
+    diff {Normal},
+    diffLine {Normal},
+    diffAdded {fg = 'NONE', bg = green_dark},
+    diffRemoved {fg = 'NONE', bg = red_dark},
+    diffChanged {fg = 'NONE', bg = blue_dark},
+
+    gitCommitDiff {diff},
+
     GitSignsAdd {fg = green},
     GitSignsAddNr {GitSignsAdd},
-    GitSignsAddLn {fg = 'NONE', bg = green_dark},
+    GitSignsAddLn {diffAdded},
 
     GitSignsChange {fg = blue_light},
     GitSignsChangeNr {GitSignsChange},
-    GitSignsChangeLn {fg = 'NONE', bg = blue_dark},
+    GitSignsChangeLn {diffChanged},
 
     GitSignsDelete {fg = red_desat},
     GitSignsDeleteNr {GitSignsDelete},
-    GitSignsDeleteLn {fg = 'NONE', bg = red_dark},
+    GitSignsDeleteLn {diffRemoved},
 
     -- These groups are for the native LSP client. Some other LSP clients may
     -- use these groups, or use their own. Consult your LSP client's
@@ -226,7 +238,7 @@ local theme = lush(function()
     -- LspReferenceRead                     { }, -- used for highlighting "read" references
     -- LspReferenceWrite                    { }, -- used for highlighting "write" references
 
-    -- LspDiagnosticsDefaultError           { }, -- Used as the base highlight group. Other LspDiagnostic highlights link to this by default (except Underline)
+    LspDiagnosticsDefaultError           {fg = red_desat, gui = 'underline'}, -- Used as the base highlight group. Other LspDiagnostic highlights link to this by default (except Underline)
     -- LspDiagnosticsDefaultWarning         { }, -- Used as the base highlight group. Other LspDiagnostic highlights link to this by default (except Underline)
     -- LspDiagnosticsDefaultInformation     { }, -- Used as the base highlight group. Other LspDiagnostic highlights link to this by default (except Underline)
     -- LspDiagnosticsDefaultHint            { }, -- Used as the base highlight group. Other LspDiagnostic highlights link to this by default (except Underline)
@@ -274,11 +286,11 @@ local theme = lush(function()
     -- TSFunction           { };    -- For function (calls and definitions).
     -- TSFuncBuiltin        { };    -- For builtin functions: `table.insert` in Lua.
     -- TSFuncMacro          { };    -- For macro defined fuctions (calls and definitions): each `macro_rules` in Rust.
-    -- TSInclude            { };    -- For includes: `#include` in C, `use` or `extern crate` in Rust, or `require` in Lua.
+    TSInclude            {Statement};    -- For includes: `#include` in C, `use` or `extern crate` in Rust, or `require` in Lua.
     -- TSKeyword            { };    -- For keywords that don't fall in previous categories.
     -- TSKeywordFunction    { };    -- For keywords used to define a fuction.
     -- TSLabel              { };    -- For labels: `label:` in C and `:label:` in Lua.
-    -- TSMethod             { };    -- For method calls and definitions.
+    -- TSMethod             {};    -- For method calls and definitions.
     -- TSNamespace          { };    -- For identifiers referring to modules and namespaces.
     -- TSNone               { };    -- TODO: docs
     -- TSNumber             { };    -- For all numbers
@@ -287,8 +299,8 @@ local theme = lush(function()
     -- TSParameterReference { };    -- For references to parameters of a function.
     -- TSProperty           { };    -- Same as `TSField`.
     -- TSPunctDelimiter     { };    -- For delimiters ie: `.`
-    -- TSPunctBracket       { };    -- For brackets and parens.
-    -- TSPunctSpecial       { };    -- For special punctutation that does not fall in the catagories before.
+    -- TSPunctBracket       {};    -- For brackets and parens.
+    -- TSPunctSpecial       {};    -- For special punctutation that does not fall in the catagories before.
     -- TSRepeat             { };    -- For keywords related to loops.
     -- TSString             { };    -- For strings.
     -- TSStringRegex        { };    -- For regexes.
@@ -296,7 +308,7 @@ local theme = lush(function()
     -- TSSymbol             { };    -- For identifiers referring to symbols or atoms.
     -- TSType               { };    -- For types.
     -- TSTypeBuiltin        { };    -- For builtin types.
-    -- TSVariable           { };    -- Any variable name that does not have another highlight.
+    -- TSVariable           {};    -- Any variable name that does not have another highlight.
     -- TSVariableBuiltin    { };    -- Variable names that are defined by the languages, like `this` or `self`.
 
     -- TSTag                { };    -- Tags like html tag names.
