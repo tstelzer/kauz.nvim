@@ -140,8 +140,8 @@ local theme = lush(function()
     -- Question     { }, -- |hit-enter| prompt and yes/no questions
     -- QuickFixLine { }, -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
     IncSearch    {bg = orange, fg = black, gui = 'bold'}, -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
-    Search       {bg = orange.desaturate(60), fg = black, gui = 'NONE'}, -- Last search pattern highlighting (see 'hlsearch').  Also used for similar items that need to stand out.
-    Substitute   {IncSearch}, -- |:substitute| replacement text highlighting
+    Search       {bg = orange, fg = black, gui = 'NONE'}, -- Last search pattern highlighting (see 'hlsearch').  Also used for similar items that need to stand out.
+    Substitute   {bg = yellow, fg = black, gui = 'bold'}, -- |:substitute| replacement text highlighting
     -- SpecialKey   { }, -- Unprintable characters: text displayed differently from what it really is.  But not 'listchars' whitespace. |hl-Whitespace|
     SpellBad     {fg = red_light}, -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise. 
     SpellCap     {fg = cyan}, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
@@ -235,9 +235,9 @@ local theme = lush(function()
     -- use these groups, or use their own. Consult your LSP client's
     -- documentation.
 
-    -- LspReferenceText                     { }, -- used for highlighting "text" references
-    -- LspReferenceRead                     { }, -- used for highlighting "read" references
-    -- LspReferenceWrite                    { }, -- used for highlighting "write" references
+    LspReferenceText                     {bg = cyan_light, fg = black}, -- used for highlighting "text" references
+    LspReferenceRead                     {LspReferenceText}, -- used for highlighting "read" references
+    LspReferenceWrite                    {LspReferenceText}, -- used for highlighting "write" references
 
     LspDiagnosticsDefaultError           {fg = red_desat, gui = 'underline'}, -- Used as the base highlight group. Other LspDiagnostic highlights link to this by default (except Underline)
     -- LspDiagnosticsDefaultWarning         { }, -- Used as the base highlight group. Other LspDiagnostic highlights link to this by default (except Underline)
@@ -309,8 +309,8 @@ local theme = lush(function()
     -- TSSymbol             { };    -- For identifiers referring to symbols or atoms.
     -- TSType               { };    -- For types.
     -- TSTypeBuiltin        { };    -- For builtin types.
-    TSVariable           {};    -- Any variable name that does not have another highlight.
-    -- TSVariableBuiltin    {};    -- Variable names that are defined by the languages, like `this` or `self`.
+    TSVariable           {Normal};    -- Any variable name that does not have another highlight.
+    TSVariableBuiltin    {Normal};    -- Variable names that are defined by the languages, like `this` or `self`.
 
     -- TSTag                { };    -- Tags like html tag names.
     -- TSTagDelimiter       { };    -- Tag delimiter like `<` `>` `/`
