@@ -110,7 +110,7 @@ local theme = lush(function()
     CursorIM     {Cursor}, -- like Cursor, but used when in IME mode |CursorIM|
     CursorLine   {fg = 'NONE', bg = bg.lighten(5)}, -- Screen-line at the cursor, when 'cursorline' is set.  Low-priority if foreground (ctermfg OR guifg) is not set.
     CursorColumn {CursorLine}, -- Screen-column at the cursor, when 'cursorcolumn' is set.
-    -- Directory    { }, -- directory names (and other special names in listings)
+    Directory    {fg = cyan_light}, -- directory names (and other special names in listings)
     DiffAdd      {fg = 'NONE', bg = green_dark, gui = 'nocombine'}, -- diff mode: Added line |diff.txt|
     DiffChange   {fg = 'NONE', bg = blue_dark, gui = 'nocombine'}, -- diff mode: Changed line |diff.txt|
     DiffDelete   {fg = 'NONE', bg = red_dark, gui = 'nocombine'}, -- diff mode: Deleted line |diff.txt|
@@ -125,7 +125,7 @@ local theme = lush(function()
     SignColumn   {fg = 'NONE'}, -- column where |signs| are displayed
     LineNr       {fg = fade}, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
     CursorLineNr {fg = dash, gui = 'bold'}, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
-    MatchParen   {fg = cyan}, -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
+    MatchParen   {fg = orange}, -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
     -- ModeMsg      { }, -- 'showmode' message (e.g., "-- INSERT -- ")
     -- MsgArea      { }, -- Area for messages and cmdline
     -- MsgSeparator {fg = fg}, -- Separator for scrolled messages, `msgsep` flag of 'display'
