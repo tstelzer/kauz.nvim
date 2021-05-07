@@ -321,6 +321,23 @@ local theme = lush(function()
     -- TSTitle              { };    -- Text that is part of a title.
     -- TSLiteral            { };    -- Literal text.
     -- TSURI                { };    -- Any URI like a link or email.
+
+    TelescopeSelection      {Title}; -- selected item
+    TelescopeSelectionCaret {fg = orange, gui = 'bold'}; -- selection caret
+    TelescopeMultiSelection {}; -- multisections
+    TelescopeNormal         {NormalFloat}; -- floating windows created by telescope.
+
+    -- Border highlight groups.
+    TelescopeBorder         {NormalFloat};
+    TelescopePromptBorder   {NormalFloat};
+    TelescopeResultsBorder  {NormalFloat};
+    TelescopePreviewBorder  {NormalFloat};
+
+    -- Used for highlighting characters that you match.
+    TelescopeMatching       {Search};
+
+    -- Used for the prompt prefix
+    TelescopePromptPrefix   {fg = orange, gui = 'bold'};
   }
 end)
 
