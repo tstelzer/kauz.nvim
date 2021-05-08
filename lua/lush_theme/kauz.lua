@@ -68,6 +68,8 @@ local magenta_dark  = magenta.darken(50)
 local magenta_light = magenta.lighten(40)
 
 local orange        = hsl('#FF7600')
+local orange_dark   = orange.darken(20)
+local orange_light   = orange.lighten(20)
 
 local red           = hsl('#FB0101')
 local red_light     = red.lighten(20)
@@ -131,7 +133,7 @@ local theme = lush(function()
     -- MsgSeparator {fg = fg}, -- Separator for scrolled messages, `msgsep` flag of 'display'
     -- MoreMsg      { }, -- |more-prompt|
     Normal       {fg = fg, bg = 'NONE'}, -- normal text
-    NormalFloat  {fg = Normal.fg, bg = bg_darker}, -- Normal text in floating windows.
+    NormalFloat  {fg = Normal.fg, bg = bg_dark}, -- Normal text in floating windows.
     NormalNC     {fg = Normal.fg, bg = bg_dark}, -- normal text in non-current windows
     Pmenu        {fg = fg_light, bg = bg_light}, -- Popup menu: normal item.
     PmenuSel     {fg = magenta, bg = Pmenu.bg}, -- Popup menu: selected item.
@@ -334,10 +336,51 @@ local theme = lush(function()
     TelescopePreviewBorder  {NormalFloat};
 
     -- Used for highlighting characters that you match.
-    TelescopeMatching       {Search};
+    TelescopeMatching       {fg = orange};
 
     -- Used for the prompt prefix
     TelescopePromptPrefix   {fg = orange, gui = 'bold'};
+
+    Sneak {Search};
+    SneakLabel {IncSearch};
+    SneakScope {Title};
+
+    IncSearchCursor {IncSearch};
+
+    DirvishPathTail {Directory};
+    DirvishPathHead {Comment};
+
+    WhichKey {fg = orange};
+    WhichKeyGroup {};
+    WhichKeySeperator {fg = fade, gui = 'NONE'};
+    WhichKeyDesc {};
+    WhichKeyFloat {};
+    WhichKeyValue {};
+
+    ExchangeRegion {Substitute};
+
+    HopNextKey {fg = orange, gui = 'bold'};
+    HopNextKey1 {fg = orange};
+    HopNextKey2 {fg = cyan};
+    HopUnmatched {Whitespace};
+
+    -- rainbowParensShell16 {};
+    -- rainbowParensShell15 {};
+    -- rainbowParensShell14 {};
+    -- rainbowParensShell13 {};
+    -- rainbowParensShell12 {};
+    -- rainbowParensShell11 {};
+    -- rainbowParensShell10 {};
+    -- rainbowParensShell9 {};
+    -- rainbowParensShell8 {};
+    -- rainbowParensShell7 {};
+    -- rainbowParensShell6 {};
+    -- rainbowParensShell5 {};
+    -- rainbowParensShell4 {fg = magenta};
+    -- rainbowParensShell3 {fg = cyan};
+    -- rainbowParensShell2 {fg = red};
+    -- rainbowParensShell1 {Whitespace};
+
   }
 end)
 
