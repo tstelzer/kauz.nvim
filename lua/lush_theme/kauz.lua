@@ -45,48 +45,55 @@
 local lush = require('lush')
 local hsl = lush.hsl
 
-local white         = hsl('#ffffff')
-local fg            = hsl('#dcdcdc')
-local fg_light      = hsl('#fefefe')
-local fg_dark       = hsl('#cccccc')
-local gray          = hsl('#808080')
-local bg            = hsl('#1e1e1e')
-local bg_lighter    = bg.lighten(25)
-local bg_light      = bg.lighten(5)
-local bg_dark       = bg.darken(15)
-local bg_darker     = bg.darken(40)
-local black         = hsl('#000000')
+-- color palette
 
+local white = hsl('#ffffff')
+local gray1 = hsl('#dedede')
+local gray2 = hsl('#c8c8c8')
+local gray3 = hsl('#b0b0b0')
+local gray4 = hsl('#989898')
+local gray5 = hsl('#808080')
+local gray6 = hsl('#686868')
+local gray7 = hsl('#484848')
+local gray8 = hsl('#202020')
+local gray9 = hsl('#1c1c1c')
+local black = hsl('#000000')
+
+local cyan_dark     = hsl('#004e52')
 local cyan          = hsl('#00F4FF')
-local cyan_dark     = cyan.darken(50)
-local cyan_light    = cyan.lighten(40)
-local yellow        = cyan.rotate(-120).desaturate(30)
-local yellow_dark   = yellow.darken(50)
-local yellow_light  = yellow.lighten(40)
-local magenta       = cyan.rotate(120)
-local magenta_dark  = magenta.darken(50)
-local magenta_light = magenta.lighten(40)
-
+local cyan_light    = hsl('#adfbff')
+local yellow_dark   = hsl('#756200')
+local yellow        = hsl('#e3bd00')
+local yellow_light  = hsl('#ffec8f')
+local magenta_dark  = hsl('#70003e')
+local magenta       = hsl('#ff008b')
+local magenta_light = hsl('#ff9ed3')
+local orange_dark   = hsl('#6b3200')
 local orange        = hsl('#FF7600')
-local orange_dark   = orange.darken(20)
-local orange_light   = orange.lighten(20)
-
+local orange_light  = hsl('#ffb87a')
+local red_light     = hsl('#fe7676')
 local red           = hsl('#FB0101')
-local red_light     = red.lighten(20)
-local red_desat     = red.desaturate(60)
-local red_dark      = hsl('#621d29')
+local red_desat     = hsl('#ba4040')
+local red_dark      = hsl('#560000')
+local green_dark    = hsl('#2e4224')
 local green         = hsl('#6A9955')
-local green_dark    = green.darken(50)
-local green_light   = green.lighten(30).saturate(5)
-local blue          = hsl('#264f78')
-local blue_dark     = blue.darken(50)
-local blue_light    = blue.lighten(40)
+local green_light   = hsl('#bbe9a5')
+local blue_dark     = hsl('#0d365e')
+local blue          = hsl('#207fdf')
+local blue_light    = hsl('#8ac4ff')
 
-local gray_warm     = orange.darken(15).desaturate(85)
-local gray_cold     = blue_light.darken(34).desaturate(70)
+local gray_warm     = hsl('#67584c')
+local gray_cold     = hsl('#667f99')
 
-local highlight      = orange.desaturate(50).lighten(20)
-local dash          = gray
+-- functional colors
+local fg_light      = white
+local fg            = gray1
+local bg_light      = gray7
+local bg            = gray8
+local bg_dark       = gray9
+
+local highlight     = orange.desaturate(50).lighten(20)
+local dash          = gray5
 local dash_light    = dash.lighten(40)
 local fade          = dash.darken(50)
 
