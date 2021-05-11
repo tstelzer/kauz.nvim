@@ -48,54 +48,70 @@ local hsl = lush.hsl
 -- color palette
 
 local white = hsl('#ffffff')
-local gray1 = hsl('#dedede')
-local gray2 = hsl('#c8c8c8')
-local gray3 = hsl('#b0b0b0')
-local gray4 = hsl('#989898')
-local gray5 = hsl('#808080')
-local gray6 = hsl('#686868')
-local gray7 = hsl('#484848')
-local gray8 = hsl('#202020')
-local gray9 = hsl('#1c1c1c')
+
+local gray1  = hsl('#f0f0f0')
+local gray2  = hsl('#e1e1e1')
+local gray3  = hsl('#d2d2d2')
+local gray4  = hsl('#c3c3c3')
+local gray5  = hsl('#b4b4b4')
+local gray6  = hsl('#a5a5a5')
+local gray7  = hsl('#969696')
+local gray8  = hsl('#878787')
+local gray9  = hsl('#787878')
+local gray10 = hsl('#696969')
+local gray11 = hsl('#5a5a5a')
+local gray12 = hsl('#4b4b4b')
+local gray13 = hsl('#3c3c3c')
+local gray14 = hsl('#2d2d2d')
+local gray15 = hsl('#1e1e1e')
+
 local black = hsl('#000000')
 
+local gray8_warm  = hsl('#93867b')
+local gray11_warm = hsl('#67584c')
+local gray14_warm = hsl('#322e29')
+local gray14_cold = hsl('#242828')
+
 local cyan_dark     = hsl('#004e52')
-local cyan          = hsl('#00F4FF')
+local cyan          = hsl('#00F4FF') -- hue: 183
 local cyan_light    = hsl('#adfbff')
+
 local yellow_dark   = hsl('#756200')
-local yellow        = hsl('#e3bd00')
+local yellow        = hsl('#ffd500')
 local yellow_light  = hsl('#ffec8f')
+
 local magenta_dark  = hsl('#70003e')
 local magenta       = hsl('#ff008b')
 local magenta_light = hsl('#ff9ed3')
-local orange_dark   = hsl('#6b3200')
-local orange        = hsl('#FF7600')
-local orange_light  = hsl('#ffb87a')
-local red_light     = hsl('#fe7676')
-local red           = hsl('#FB0101')
-local red_desat     = hsl('#ba4040')
-local red_dark      = hsl('#560000')
-local green_dark    = hsl('#2e4224')
-local green         = hsl('#6A9955')
-local green_light   = hsl('#bbe9a5')
-local blue_dark     = hsl('#0d365e')
-local blue          = hsl('#207fdf')
-local blue_light    = hsl('#8ac4ff')
 
-local gray_warm     = hsl('#67584c')
-local gray_cold     = hsl('#667f99')
+local orange_dark   = hsl('#6b3200')
+local orange        = hsl('#FF7600') -- hue: 28
+local orange_light  = hsl('#ffb87a')
+
+local red_light     = hsl('#fe7676')
+local red           = hsl('#df2020')
+local red_dark      = hsl('#560000')
+
+local green_dark    = hsl('#2e4224')
+local green         = hsl('#73a659')
+local green_light   = hsl('#bbe9a5')
+
+local blue_dark     = hsl('#0d365e')
+local blue          = hsl('#407fbf')
+local blue_light    = hsl('#b3cce6')
 
 -- functional colors
 local fg_light      = white
 local fg            = gray1
-local bg_light      = gray7
-local bg            = gray8
-local bg_dark       = gray9
+local bg_light      = gray13
+local bg            = gray14
+local bg_dark       = gray15
 
 local highlight     = orange.desaturate(50).lighten(20)
-local dash          = gray5
-local dash_light    = dash.lighten(40)
-local fade          = dash.darken(50)
+local dash          = gray11
+local dash_light    = gray5
+local faded         = gray10
+local concealed     = gray12
 
 local theme = lush(function()
   return {
@@ -111,9 +127,9 @@ local theme = lush(function()
     -- styling for that group (meaning they mostly get styled as Normal)
     -- or leave them commented to apply vims default colouring or linking.
 
-    Comment      {fg = gray_warm}, -- any comment
-    ColorColumn  {bg = fade}, -- used for the columns set with 'colorcolumn'
-    -- Conceal      { }, -- placeholder characters substituted for concealed text (see 'conceallevel')
+    Comment      {fg = gray11_warm}, -- any comment
+    ColorColumn  {bg = concealed}, -- used for the columns set with 'colorcolumn'
+    Conceal      {fg = concealed}, -- placeholder characters substituted for concealed text (see 'conceallevel')
     Cursor       {fg = fg, bg = bg, gui = 'reverse'}, -- character under the cursor
     lCursor      {Cursor}, -- the character under the cursor when |language-mapping| is used (see 'guicursor')
     CursorIM     {Cursor}, -- like Cursor, but used when in IME mode |CursorIM|
@@ -128,12 +144,12 @@ local theme = lush(function()
     -- TermCursor   { }, -- cursor in a focused terminal
     -- TermCursorNC { }, -- cursor in an unfocused terminal
     ErrorMsg     {fg = red, gui = 'bold'}, -- error messages on the command line
-    VertSplit    {fg = dash}, -- the column separating vertically split windows
+    VertSplit    {fg = concealed}, -- the column separating vertically split windows
     Folded       {bg = cyan_dark, fg = fg_light}, -- line used for closed folds
     -- FoldColumn   { }, -- 'foldcolumn'
     SignColumn   {fg = 'NONE'}, -- column where |signs| are displayed
-    LineNr       {fg = fade}, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
-    CursorLineNr {fg = dash, gui = 'bold'}, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
+    LineNr       {fg = concealed}, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
+    CursorLineNr {fg = concealed, gui = 'bold'}, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
     MatchParen   {fg = orange}, -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
     -- ModeMsg      { }, -- 'showmode' message (e.g., "-- INSERT -- ")
     -- MsgArea      { }, -- Area for messages and cmdline
@@ -156,16 +172,16 @@ local theme = lush(function()
     SpellCap     {fg = cyan}, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
     SpellLocal   {fg = cyan_light}, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
     SpellRare    {fg = magenta_light}, -- Word that is recognized by the spellchecker as one that is hardly ever used.  |spell| Combined with the highlighting used otherwise.
-    StatusLine   {bg = bg_light}, -- status line of current window
-    StatusLineNC {bg = bg_light}, -- status lines of not-current windows Note: if this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
-    TabLine      {fg = Normal.fg, bg = bg_light}, -- tab pages line, not active tab page label
+    StatusLine   {bg = gray14_cold}, -- status line of current window
+    StatusLineNC {bg = gray14_cold}, -- status lines of not-current windows Note: if this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
+    TabLine      {StatusLine}, -- tab pages line, not active tab page label
     TabLineFill  {TabLine}, -- tab pages line, where there are no labels
     TabLineSel   {TabLine}, -- tab pages line, active tab page label
     Title        {fg = fg_light, gui = 'bold'}, -- titles for output from ":set all", ":autocmd" etc.
     Visual       {bg = blue, fg = 'NONE'}, -- Visual mode selection
     -- VisualNOS    {}, -- Visual mode selection when vim is "Not Owning the Selection".
     WarningMsg   {fg = yellow, gui = 'bold'}, -- warning messages
-    Whitespace   {fg = fade}, -- "nbsp", "space", "tab" and "trail" in 'listchars'
+    Whitespace   {fg = concealed}, -- "nbsp", "space", "tab" and "trail" in 'listchars'
     NonText      {Whitespace}, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
     WildMenu     {PmenuSel}, -- current match in 'wildmenu' completion
 
@@ -178,14 +194,14 @@ local theme = lush(function()
     Constant       {}, -- (preferred) any constant
     String         {fg = green_light, bg = Normal.bg}, --   a string constant: "this is a string"
     Character      {String}, --  a character constant: 'c', '\n'
-    Number         {fg = String.fg.rotate(50), gui = 'bold'}, --   a number constant: 234, 0xff
+    Number         {fg = String.fg.rotate(50).saturate(20), gui = 'bold'}, --   a number constant: 234, 0xff
     Float          {Number}, --    a floating point constant: 2.3e10
-    Boolean        {fg = String.fg.rotate(-50), gui = 'bold'}, --  a boolean constant: TRUE, false
+    Boolean        {fg = String.fg.rotate(-30).saturate(20), gui = 'bold'}, --  a boolean constant: TRUE, false
 
     Identifier     {Normal}, -- (preferred) any variable name
     -- Function       {}, -- function name (also: methods for classes)
 
-    Statement      {fg = dash}, -- (preferred) any statement
+    Statement      {fg = faded}, -- (preferred) any statement
     -- Conditional    { }, --  if, then, else, endif, switch, etc.
     -- Repeat         { }, --   for, do, while, etc.
     -- Label          { }, --    case, default, etc.
@@ -207,7 +223,7 @@ local theme = lush(function()
     Special        {}, -- (preferred) any special symbol
     SpecialChar    {fg = magenta_light.desaturate(70)}, --  special character in a constant
     -- Tag            { }, --    you can use CTRL-] on this
-    Delimiter      {fg = dash}, --  character that needs attention
+    Delimiter      {fg = faded}, --  character that needs attention
     -- SpecialComment { }, -- special things inside a comment
     -- Debug          { }, --    debugging statements
 
@@ -232,11 +248,11 @@ local theme = lush(function()
     GitSignsAddNr {GitSignsAdd},
     GitSignsAddLn {diffAdded},
 
-    GitSignsChange {fg = blue_light},
+    GitSignsChange {fg = blue},
     GitSignsChangeNr {GitSignsChange},
     GitSignsChangeLn {diffChanged},
 
-    GitSignsDelete {fg = red_desat},
+    GitSignsDelete {fg = red},
     GitSignsDeleteNr {GitSignsDelete},
     GitSignsDeleteLn {diffRemoved},
 
@@ -244,7 +260,7 @@ local theme = lush(function()
     -- use these groups, or use their own. Consult your LSP client's
     -- documentation.
 
-    LspReferenceText                     {bg = cyan_light, fg = black}, -- used for highlighting "text" references
+    LspReferenceText                     {bg = cyan, fg = black}, -- used for highlighting "text" references
     LspReferenceRead                     {LspReferenceText}, -- used for highlighting "read" references
     LspReferenceWrite                    {LspReferenceText}, -- used for highlighting "write" references
 
@@ -359,7 +375,7 @@ local theme = lush(function()
 
     WhichKey {fg = orange};
     WhichKeyGroup {};
-    WhichKeySeperator {fg = fade, gui = 'NONE'};
+    WhichKeySeperator {fg = faded, gui = 'NONE'};
     WhichKeyDesc {};
     WhichKeyFloat {};
     WhichKeyValue {};
