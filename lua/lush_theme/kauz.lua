@@ -157,7 +157,7 @@ local theme = lush(function()
     -- MoreMsg      { }, -- |more-prompt|
     Normal       {fg = fg, bg = 'NONE'}, -- normal text
     NormalFloat  {fg = Normal.fg, bg = bg_dark}, -- Normal text in floating windows.
-    NormalNC     {fg = Normal.fg, bg = bg_dark}, -- normal text in non-current windows
+    NormalNC     {Normal}, -- normal text in non-current windows
     Pmenu        {fg = fg_light, bg = bg_light}, -- Popup menu: normal item.
     PmenuSel     {fg = magenta, bg = Pmenu.bg}, -- Popup menu: selected item.
     -- PmenuSbar    { }, -- Popup menu: scrollbar.
@@ -333,7 +333,7 @@ local theme = lush(function()
     -- TSStringEscape       { };    -- For escape characters within a string.
     -- TSSymbol             { };    -- For identifiers referring to symbols or atoms.
     -- TSType               { };    -- For types.
-    -- TSTypeBuiltin        { };    -- For builtin types.
+    -- TSTypeBuiltin        {Type};    -- For builtin types.
     TSVariable           {Normal};    -- Any variable name that does not have another highlight.
     TSVariableBuiltin    {Normal};    -- Variable names that are defined by the languages, like `this` or `self`.
 
