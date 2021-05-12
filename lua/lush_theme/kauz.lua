@@ -107,11 +107,10 @@ local bg_light      = gray13
 local bg            = gray14
 local bg_dark       = gray15
 
-local highlight     = orange.desaturate(50).lighten(20)
-local dash          = gray11
-local dash_light    = gray5
-local faded         = gray10
-local concealed     = gray12
+local highlight       = orange
+local highlight_light = orange_light
+local faded           = gray9
+local concealed       = gray13
 
 local theme = lush(function()
   return {
@@ -150,7 +149,7 @@ local theme = lush(function()
     SignColumn   {fg = 'NONE'}, -- column where |signs| are displayed
     LineNr       {fg = concealed}, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
     CursorLineNr {fg = concealed, gui = 'bold'}, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
-    MatchParen   {fg = orange}, -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
+    MatchParen   {fg = highlight}, -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
     -- ModeMsg      { }, -- 'showmode' message (e.g., "-- INSERT -- ")
     -- MsgArea      { }, -- Area for messages and cmdline
     -- MsgSeparator {fg = fg}, -- Separator for scrolled messages, `msgsep` flag of 'display'
@@ -164,8 +163,8 @@ local theme = lush(function()
     -- PmenuThumb   { }, -- Popup menu: Thumb of the scrollbar.
     -- Question     { }, -- |hit-enter| prompt and yes/no questions
     -- QuickFixLine { }, -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
-    IncSearch    {bg = orange, fg = black, gui = 'bold'}, -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
-    Search       {bg = orange, fg = black, gui = 'NONE'}, -- Last search pattern highlighting (see 'hlsearch').  Also used for similar items that need to stand out.
+    IncSearch    {bg = highlight, fg = black, gui = 'bold'}, -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
+    Search       {bg = highlight_light, fg = black, gui = 'NONE'}, -- Last search pattern highlighting (see 'hlsearch').  Also used for similar items that need to stand out.
     Substitute   {bg = yellow, fg = black, gui = 'bold'}, -- |:substitute| replacement text highlighting
     -- SpecialKey   { }, -- Unprintable characters: text displayed differently from what it really is.  But not 'listchars' whitespace. |hl-Whitespace|
     SpellBad     {fg = red_light}, -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise. 
@@ -181,7 +180,7 @@ local theme = lush(function()
     Visual       {bg = blue, fg = 'NONE'}, -- Visual mode selection
     -- VisualNOS    {}, -- Visual mode selection when vim is "Not Owning the Selection".
     WarningMsg   {fg = yellow, gui = 'bold'}, -- warning messages
-    Whitespace   {fg = concealed}, -- "nbsp", "space", "tab" and "trail" in 'listchars'
+    Whitespace   {fg = faded}, -- "nbsp", "space", "tab" and "trail" in 'listchars'
     NonText      {Whitespace}, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
     WildMenu     {PmenuSel}, -- current match in 'wildmenu' completion
 
@@ -191,7 +190,7 @@ local theme = lush(function()
     -- default,
     -- Uncomment and edit if you want more specific syntax highlighting.
 
-    Constant       {}, -- (preferred) any constant
+    Constant       {Normal}, -- (preferred) any constant
     String         {fg = green_light, bg = Normal.bg}, --   a string constant: "this is a string"
     Character      {String}, --  a character constant: 'c', '\n'
     Number         {fg = String.fg.rotate(50).saturate(20), gui = 'bold'}, --   a number constant: 234, 0xff
@@ -221,7 +220,7 @@ local theme = lush(function()
     -- Typedef        { }, --  A typedef
 
     Special        {fg = cyan}, -- (preferred) any special symbol
-    SpecialChar    {fg = cyan_light}, --  special character in a constant
+    SpecialChar    {fg = cyan, gui = 'bold'}, --  special character in a constant
     -- Tag            { }, --    you can use CTRL-] on this
     Delimiter      {Whitespace}, --  character that needs attention
     -- SpecialComment { }, -- special things inside a comment
@@ -301,10 +300,11 @@ local theme = lush(function()
     -- TSBoolean            { };    -- For booleans.
     -- TSCharacter          { };    -- For characters.
     -- TSComment            { };    -- For comment blocks.
-    TSConstructor        {Whitespace};    -- For constructor calls and definitions: ` { }` in Lua, and Java constructors.
+    -- NOTE: this apparently includes namespaces
+    TSConstructor        {Normal};    -- For constructor calls and definitions: ` { }` in Lua, and Java constructors.
     -- TSConditional        { };    -- For keywords related to conditionnals.
-    -- TSConstant           { };    -- For constants
-    TSConstBuiltin       {Whitespace};    -- For constant that are built in the language: `nil` in Lua.
+    TSConstant           {Constant};    -- For constants
+    TSConstBuiltin       {Special};    -- For constant that are built in the language: `nil` in Lua.
     -- TSConstMacro         { };    -- For constants that are defined by macros: `NULL` in C.
     -- TSError              { };    -- For syntax/parser errors.
     -- TSException          { };    -- For exception related keywords.
@@ -319,6 +319,8 @@ local theme = lush(function()
     -- TSLabel              { };    -- For labels: `label:` in C and `:label:` in Lua.
     -- TSMethod             {};    -- For method calls and definitions.
     -- TSNamespace          { };    -- For identifiers referring to modules and namespaces.
+    TSNote {Todo};
+    TSDanger {WarningMsg};
     -- TSNone               { };    -- TODO: docs
     -- TSNumber             { };    -- For all numbers
     -- TSOperator           { };    -- For any operator: `+`, but also `->` and `*` in C.
@@ -327,11 +329,11 @@ local theme = lush(function()
     TSProperty           {Normal};    -- Same as `TSField`.
     -- TSPunctDelimiter     { };    -- For delimiters ie: `.`
     -- TSPunctBracket       {};    -- For brackets and parens.
-    -- TSPunctSpecial       {};    -- For special punctutation that does not fall in the catagories before.
+    TSPunctSpecial       {Whitespace};    -- For special punctutation that does not fall in the catagories before.
     -- TSRepeat             { };    -- For keywords related to loops.
     -- TSString             { };    -- For strings.
     -- TSStringRegex        { };    -- For regexes.
-    TSStringEscape       {Special};    -- For escape characters within a string.
+    TSStringEscape       {SpecialChar};    -- For escape characters within a string.
     -- TSSymbol             { };    -- For identifiers referring to symbols or atoms.
     -- TSType               { };    -- For types.
     -- TSTypeBuiltin        {Type};    -- For builtin types.
@@ -349,7 +351,7 @@ local theme = lush(function()
     -- TSURI                { };    -- Any URI like a link or email.
 
     TelescopeSelection      {Title}; -- selected item
-    TelescopeSelectionCaret {fg = orange, gui = 'bold'}; -- selection caret
+    TelescopeSelectionCaret {fg = highlight, gui = 'bold'}; -- selection caret
     TelescopeMultiSelection {}; -- multisections
     TelescopeNormal         {NormalFloat}; -- floating windows created by telescope.
 
@@ -360,10 +362,10 @@ local theme = lush(function()
     TelescopePreviewBorder  {NormalFloat};
 
     -- Used for highlighting characters that you match.
-    TelescopeMatching       {fg = orange};
+    TelescopeMatching       {fg = highlight};
 
     -- Used for the prompt prefix
-    TelescopePromptPrefix   {fg = orange, gui = 'bold'};
+    TelescopePromptPrefix   {fg = highlight, gui = 'bold'};
 
     Sneak {Search};
     SneakLabel {IncSearch};
@@ -374,7 +376,7 @@ local theme = lush(function()
     DirvishPathTail {Directory};
     DirvishPathHead {Comment};
 
-    WhichKey {fg = orange};
+    WhichKey {fg = highlight};
     WhichKeyGroup {};
     WhichKeySeperator {fg = faded, gui = 'NONE'};
     WhichKeyDesc {};
@@ -383,8 +385,8 @@ local theme = lush(function()
 
     ExchangeRegion {Substitute};
 
-    HopNextKey {fg = orange, gui = 'bold'};
-    HopNextKey1 {fg = orange};
+    HopNextKey {fg = highlight, gui = 'bold'};
+    HopNextKey1 {fg = highlight};
     HopNextKey2 {fg = cyan};
     HopUnmatched {Whitespace};
 
