@@ -220,10 +220,10 @@ local theme = lush(function()
     -- Structure      { }, --  struct, union, enum, etc.
     -- Typedef        { }, --  A typedef
 
-    Special        {}, -- (preferred) any special symbol
-    SpecialChar    {fg = magenta_light.desaturate(70)}, --  special character in a constant
+    Special        {fg = cyan}, -- (preferred) any special symbol
+    SpecialChar    {fg = cyan_light}, --  special character in a constant
     -- Tag            { }, --    you can use CTRL-] on this
-    Delimiter      {fg = faded}, --  character that needs attention
+    Delimiter      {Whitespace}, --  character that needs attention
     -- SpecialComment { }, -- special things inside a comment
     -- Debug          { }, --    debugging statements
 
@@ -242,7 +242,8 @@ local theme = lush(function()
     diffRemoved {fg = 'NONE', bg = red_dark},
     diffChanged {fg = 'NONE', bg = blue_dark},
 
-    gitCommitDiff {DiffText},
+    gitcommitSummary {Normal},
+    gitcommitDiff {DiffText},
 
     GitSignsAdd {fg = green},
     GitSignsAddNr {GitSignsAdd},
@@ -300,17 +301,17 @@ local theme = lush(function()
     -- TSBoolean            { };    -- For booleans.
     -- TSCharacter          { };    -- For characters.
     -- TSComment            { };    -- For comment blocks.
-    -- TSConstructor        { };    -- For constructor calls and definitions: ` { }` in Lua, and Java constructors.
+    TSConstructor        {Whitespace};    -- For constructor calls and definitions: ` { }` in Lua, and Java constructors.
     -- TSConditional        { };    -- For keywords related to conditionnals.
     -- TSConstant           { };    -- For constants
-    -- TSConstBuiltin       { };    -- For constant that are built in the language: `nil` in Lua.
+    TSConstBuiltin       {Whitespace};    -- For constant that are built in the language: `nil` in Lua.
     -- TSConstMacro         { };    -- For constants that are defined by macros: `NULL` in C.
     -- TSError              { };    -- For syntax/parser errors.
     -- TSException          { };    -- For exception related keywords.
     -- TSField              { };    -- For fields.
     -- TSFloat              { };    -- For floats.
     -- TSFunction           { };    -- For function (calls and definitions).
-    -- TSFuncBuiltin        { };    -- For builtin functions: `table.insert` in Lua.
+    TSFuncBuiltin        {Whitespace};    -- For builtin functions: `table.insert` in Lua.
     -- TSFuncMacro          { };    -- For macro defined fuctions (calls and definitions): each `macro_rules` in Rust.
     TSInclude            {Statement};    -- For includes: `#include` in C, `use` or `extern crate` in Rust, or `require` in Lua.
     -- TSKeyword            {};    -- For keywords that don't fall in previous categories.
@@ -330,7 +331,7 @@ local theme = lush(function()
     -- TSRepeat             { };    -- For keywords related to loops.
     -- TSString             { };    -- For strings.
     -- TSStringRegex        { };    -- For regexes.
-    -- TSStringEscape       { };    -- For escape characters within a string.
+    TSStringEscape       {Special};    -- For escape characters within a string.
     -- TSSymbol             { };    -- For identifiers referring to symbols or atoms.
     -- TSType               { };    -- For types.
     -- TSTypeBuiltin        {Type};    -- For builtin types.
