@@ -158,7 +158,7 @@ local theme = lush(function()
     NormalFloat  {fg = Normal.fg, bg = bg_dark}, -- Normal text in floating windows.
     NormalNC     {Normal}, -- normal text in non-current windows
     Pmenu        {fg = fg_light, bg = bg_light}, -- Popup menu: normal item.
-    PmenuSel     {fg = magenta, bg = Pmenu.bg}, -- Popup menu: selected item.
+    PmenuSel     {fg = black, bg = highlight, gui = 'bold'}, -- Popup menu: selected item.
     -- PmenuSbar    { }, -- Popup menu: scrollbar.
     -- PmenuThumb   { }, -- Popup menu: Thumb of the scrollbar.
     -- Question     { }, -- |hit-enter| prompt and yes/no questions
@@ -167,10 +167,10 @@ local theme = lush(function()
     Search       {bg = highlight_light, fg = black, gui = 'NONE'}, -- Last search pattern highlighting (see 'hlsearch').  Also used for similar items that need to stand out.
     Substitute   {bg = yellow, fg = black, gui = 'bold'}, -- |:substitute| replacement text highlighting
     -- SpecialKey   { }, -- Unprintable characters: text displayed differently from what it really is.  But not 'listchars' whitespace. |hl-Whitespace|
-    SpellBad     {fg = red_light}, -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise. 
-    SpellCap     {fg = cyan}, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
-    SpellLocal   {fg = cyan_light}, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
-    SpellRare    {fg = magenta_light}, -- Word that is recognized by the spellchecker as one that is hardly ever used.  |spell| Combined with the highlighting used otherwise.
+    SpellBad     {fg = red}, -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise. 
+    SpellCap     {fg = red_light}, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
+    SpellLocal   {fg = red_light}, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
+    SpellRare    {fg = red_light}, -- Word that is recognized by the spellchecker as one that is hardly ever used.  |spell| Combined with the highlighting used otherwise.
     StatusLine   {bg = gray14_cold}, -- status line of current window
     StatusLineNC {bg = gray14_cold}, -- status lines of not-current windows Note: if this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
     TabLine      {StatusLine}, -- tab pages line, not active tab page label
@@ -219,8 +219,8 @@ local theme = lush(function()
     -- Structure      { }, --  struct, union, enum, etc.
     -- Typedef        { }, --  A typedef
 
-    Special        {fg = cyan}, -- (preferred) any special symbol
-    SpecialChar    {fg = cyan, gui = 'bold'}, --  special character in a constant
+    Special        {fg = magenta}, -- (preferred) any special symbol
+    SpecialChar    {fg = magenta, gui = 'bold'}, --  special character in a constant
     -- Tag            { }, --    you can use CTRL-] on this
     Delimiter      {Whitespace}, --  character that needs attention
     -- SpecialComment { }, -- special things inside a comment
