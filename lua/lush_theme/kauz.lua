@@ -106,6 +106,7 @@ local fg            = gray1
 local bg_light      = gray13
 local bg            = gray14
 local bg_dark       = gray15
+local bg_cold       = gray14_cold
 
 local highlight       = orange
 local highlight_light = orange_light
@@ -155,7 +156,7 @@ local theme = lush(function()
     -- MsgSeparator {fg = fg}, -- Separator for scrolled messages, `msgsep` flag of 'display'
     -- MoreMsg      { }, -- |more-prompt|
     Normal       {fg = fg, bg = 'NONE'}, -- normal text
-    NormalFloat  {fg = Normal.fg, bg = bg_dark}, -- Normal text in floating windows.
+    NormalFloat  {fg = Normal.fg, bg = bg_cold}, -- Normal text in floating windows.
     NormalNC     {Normal}, -- normal text in non-current windows
     Pmenu        {fg = fg_light, bg = bg_light}, -- Popup menu: normal item.
     PmenuSel     {fg = black, bg = highlight, gui = 'bold'}, -- Popup menu: selected item.
