@@ -322,11 +322,11 @@ local theme = lush(function()
     SneakLabel {IncSearch};
     SneakScope {Title};
 
-    LeapMatch {Search};
-    LeapLabelPrimary {IncSearch};
+    LeapMatch {fg = colors.cyan, gui = 'bold'};
+    LeapLabelPrimary {fg = colors.highlight, gui = 'bold'};
     -- LeapLabelSecondary {fg = colors.cyan};
     -- LeapLabelSelected {fg = colors.cyan};
-    -- LeapBackdrop {Whitespace};
+    LeapBackdrop {Whitespace};
 
     -- rainbowParensShell16 {};
     -- rainbowParensShell15 {};
