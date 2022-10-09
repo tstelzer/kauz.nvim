@@ -299,10 +299,6 @@ local theme = lush(function()
     -- Used for the prompt prefix
     TelescopePromptPrefix   {fg = colors.highlight, gui = 'bold'};
 
-    Sneak {Search};
-    SneakLabel {IncSearch};
-    SneakScope {Title};
-
     IncSearchCursor {IncSearch};
 
     DirvishPathTail {Directory};
@@ -321,6 +317,16 @@ local theme = lush(function()
     HopNextKey1 {fg = colors.highlight};
     HopNextKey2 {fg = colors.cyan};
     HopUnmatched {Whitespace};
+
+    Sneak {Search};
+    SneakLabel {IncSearch};
+    SneakScope {Title};
+
+    LeapMatch {Search};
+    LeapLabelPrimary {IncSearch};
+    -- LeapLabelSecondary {fg = colors.cyan};
+    -- LeapLabelSelected {fg = colors.cyan};
+    -- LeapBackdrop {Whitespace};
 
     -- rainbowParensShell16 {};
     -- rainbowParensShell15 {};
