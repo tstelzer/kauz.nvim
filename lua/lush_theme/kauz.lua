@@ -168,8 +168,9 @@ local theme = lush(function(injected_functions)
         -- ("Ignore", below, may be invisible...)
         -- Ignore         { }, -- (preferred) left blank, hidden  |hl-Ignore|
 
-        Error { ErrorMsg }, -- (preferred) any erroneous construct
-        Todo { fg = colors.fg_light, gui = 'bold' }, -- (preferred) anything that needs extra attention; mostly the keywords TODO FIXME and XXX
+        Error { ErrorMsg },
+        Warning { WarningMsg },
+        Todo { fg = colors.fg_light, gui = 'bold' },
 
         diffLine { Normal },
         diffAdded { fg = 'NONE', bg = colors.green_dark },
@@ -224,25 +225,30 @@ local theme = lush(function(injected_functions)
         LspDiagnosticsSignInformation { fg = LspDiagnosticsDefaultInformation.fg, gui = 'NONE' }, -- Used for "Information" signs in sign column
         LspDiagnosticsSignHint { fg = LspDiagnosticsDefaultHint.fg, gui = 'NONE' }, -- Used for "Hint" signs in sign column
 
-        -- old treesitter highlights
-        TSConstructor { Normal }; -- For constructor calls and definitions: ` { }` in Lua, and Java constructors.
-        TSConstant { Constant }; -- For constants
-        TSConstBuiltin { Special }; -- For constant that are built in the language: `nil` in Lua.
-        TSFuncBuiltin { Whitespace }; -- For builtin functions: `table.insert` in Lua.
-        TSInclude { Statement }; -- For includes: `#include` in C, `use` or `extern crate` in Rust, or `require` in Lua.
+        -- old treesitter highlights, here for backwards compatibility
+        TSConstructor { Normal };
+        TSConstant { Constant };
+        TSConstBuiltin { Special };
+        TSFuncBuiltin { Whitespace };
+        TSInclude { Statement };
         TSNote { Todo };
         TSDanger { WarningMsg };
-        TSProperty { Normal }; -- Same as `TSField`.
-        TSPunctSpecial { Whitespace }; -- For special punctutation that does not fall in the catagories before.
-        TSStringEscape { SpecialChar }; -- For escape characters within a string.
-        TSVariable { Normal }; -- Any variable name that does not have another highlight.
-        TSVariableBuiltin { Normal }; -- Variable names that are defined by the languages, like `this` or `self`.
+        TSProperty { Normal };
+        TSPunctSpecial { Whitespace };
+        TSStringEscape { SpecialChar };
+        TSVariable { Normal };
+        TSVariableBuiltin { Normal };
 
         -- treesitter highlights
-        sym '@include' { Statement };
+        sym '@include' { PreProc };
+        sym '@preproc' { PreProc };
         sym '@variable' { Normal };
         sym '@constructor' { Normal };
         sym '@property' { Normal };
+        sym '@text.note' { Todo };
+        sym '@text.warning' { Todo };
+        sym '@text.danger' { Warning };
+        sym '@type.builtin' { Type };
 
         TelescopeSelection { Title }; -- selected item
         TelescopeSelectionCaret { fg = colors.highlight, gui = 'bold' }; -- selection caret
@@ -254,12 +260,8 @@ local theme = lush(function(injected_functions)
         TelescopePromptBorder { NormalFloat };
         TelescopeResultsBorder { NormalFloat };
         TelescopePreviewBorder { NormalFloat };
-
-        -- Used for highlighting characters that you match.
-        TelescopeMatching { fg = colors.highlight };
-
-        -- Used for the prompt prefix
-        TelescopePromptPrefix { fg = colors.highlight, gui = 'bold' };
+        TelescopeMatching { fg = colors.highlight }; -- Used for highlighting characters that you match.
+        TelescopePromptPrefix { fg = colors.highlight, gui = 'bold' }; -- Used for the prompt prefix
 
         IncSearchCursor { IncSearch };
 
