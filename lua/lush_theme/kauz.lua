@@ -84,7 +84,7 @@ local theme = lush(function(injected_functions)
         SignColumn { fg = 'NONE' }, -- column where |signs| are displayed
         LineNr { fg = colors.concealed }, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
         CursorLineNr { fg = colors.concealed, gui = 'bold' }, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
-        MatchParen { fg = colors.highlight, gui = 'bold' }, -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
+        MatchParen { fg = colors.black, bg = colors.highlight, gui = 'bold' }, -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
         -- ModeMsg      { }, -- 'showmode' message (e.g., "-- INSERT -- ")
         -- MsgArea      { }, -- Area for messages and cmdline
         -- MsgSeparator {fg = fg}, -- Separator for scrolled messages, `msgsep` flag of 'display'
@@ -98,7 +98,7 @@ local theme = lush(function(injected_functions)
         -- PmenuThumb   { }, -- Popup menu: Thumb of the scrollbar.
         -- Question     { }, -- |hit-enter| prompt and yes/no questions
         -- QuickFixLine { }, -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
-        IncSearch { bg = colors.highlight, fg = colors.black, gui = 'bold' }, -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
+        IncSearch { bg = colors.highlight, fg = colors.black, gui = 'bold' }, -- 'incsearch' highlighting, also used for the text replaced with ":s///c"
         Search { bg = colors.highlight_light, fg = colors.black, gui = 'NONE' }, -- Last search pattern highlighting (see 'hlsearch').  Also used for similar items that need to stand out.
         Substitute { bg = colors.yellow, fg = colors.black, gui = 'bold' }, -- |:substitute| replacement text highlighting
         -- SpecialKey   { }, -- Unprintable characters: text displayed differently from what it really is.  But not 'listchars' whitespace. |hl-Whitespace|
@@ -126,6 +126,7 @@ local theme = lush(function(injected_functions)
         -- Uncomment and edit if you want more specific syntax highlighting.
 
         Constant { Normal }, -- (preferred) any constant
+        BuiltinConstant { fg = colors.magenta_light },
         String { fg = colors.green_light, bg = Normal.bg }, --   a string constant: "this is a string"
         Character { String }, --  a character constant: 'c', '\n'
         Number { fg = String.fg.rotate(50).saturate(20), gui = 'bold' }, --   a number constant: 234, 0xff
@@ -226,91 +227,84 @@ local theme = lush(function(injected_functions)
         LspDiagnosticsSignHint { fg = LspDiagnosticsDefaultHint.fg, gui = 'NONE' }, -- Used for "Hint" signs in sign column
 
         -- old treesitter highlights, here for backwards compatibility
-        TSConstructor { Normal };
-        TSConstant { Constant };
-        TSConstBuiltin { Special };
-        TSFuncBuiltin { Whitespace };
-        TSInclude { Statement };
-        TSNote { Todo };
-        TSDanger { WarningMsg };
-        TSProperty { Normal };
-        TSPunctSpecial { Whitespace };
-        TSStringEscape { SpecialChar };
-        TSVariable { Normal };
-        TSVariableBuiltin { Normal };
+        TSConstructor { Normal },
+        TSConstant { Constant },
+        TSConstBuiltin { Special },
+        TSFuncBuiltin { Whitespace },
+        TSInclude { Statement },
+        TSNote { Todo },
+        TSDanger { WarningMsg },
+        TSProperty { Normal },
+        TSPunctSpecial { Whitespace },
+        TSStringEscape { SpecialChar },
+        TSVariable { Normal },
+        TSVariableBuiltin { Normal },
+
+        typescriptNull { Normal },
 
         -- treesitter highlights
-        sym '@include' { PreProc };
-        sym '@preproc' { PreProc };
-        sym '@variable' { Normal };
-        sym '@constructor' { Normal };
-        sym '@property' { Normal };
-        sym '@text.note' { Todo };
-        sym '@text.warning' { Todo };
-        sym '@text.danger' { Warning };
-        sym '@type.builtin' { Type };
-        sym '@constant.builtin' { Special };
-        sym '@variable.builtin' { Special };
+        sym '@include' { PreProc },
+        sym '@preproc' { PreProc },
+        sym '@variable' { Normal },
+        sym '@constructor' { Normal },
+        sym '@property' { Normal },
+        sym '@text.note' { Todo },
+        sym '@text.warning' { Todo },
+        sym '@text.danger' { Warning },
+        sym '@type.builtin' { Type },
+        sym '@constant.builtin' { BuiltinConstant },
+        sym '@variable.builtin' { BuiltinConstant },
+        sym '@function.builtin' { Normal },
 
-        TelescopeSelection { Title }; -- selected item
-        TelescopeSelectionCaret { fg = colors.highlight, gui = 'bold' }; -- selection caret
-        TelescopeMultiSelection {}; -- multisections
-        TelescopeNormal { NormalFloat }; -- floating windows created by telescope.
+        TelescopeSelection { Title }, -- selected item
+        TelescopeSelectionCaret { fg = colors.highlight, gui = 'bold' }, -- selection caret
+        TelescopeMultiSelection {}, -- multisections
+        TelescopeNormal { NormalFloat }, -- floating windows created by telescope.
 
         -- Border highlight groups.
-        TelescopeBorder { NormalFloat };
-        TelescopePromptBorder { NormalFloat };
-        TelescopeResultsBorder { NormalFloat };
-        TelescopePreviewBorder { NormalFloat };
-        TelescopeMatching { fg = colors.highlight }; -- Used for highlighting characters that you match.
-        TelescopePromptPrefix { fg = colors.highlight, gui = 'bold' }; -- Used for the prompt prefix
+        TelescopeBorder { NormalFloat },
+        TelescopePromptBorder { NormalFloat },
+        TelescopeResultsBorder { NormalFloat },
+        TelescopePreviewBorder { NormalFloat },
+        TelescopeMatching { fg = colors.highlight }, -- Used for highlighting characters that you match.
+        TelescopePromptPrefix { fg = colors.highlight, gui = 'bold' }, -- Used for the prompt prefix
 
-        IncSearchCursor { IncSearch };
+        IncSearchCursor { IncSearch },
 
-        DirvishPathTail { Directory };
-        DirvishPathHead { Comment };
+        DirvishPathTail { Directory },
+        DirvishPathHead { Comment },
 
-        WhichKey { fg = colors.highlight };
-        WhichKeyGroup {};
-        WhichKeySeperator { fg = colors.faded, gui = 'NONE' };
-        WhichKeyDesc {};
-        WhichKeyFloat {};
-        WhichKeyValue {};
+        WhichKey { fg = colors.highlight },
+        WhichKeyGroup {},
+        WhichKeySeperator { fg = colors.faded, gui = 'NONE' },
+        WhichKeyDesc {},
+        WhichKeyFloat {},
+        WhichKeyValue {},
 
-        ExchangeRegion { Substitute };
+        ExchangeRegion { Substitute },
 
-        HopNextKey { fg = colors.highlight, gui = 'bold' };
-        HopNextKey1 { fg = colors.highlight };
-        HopNextKey2 { fg = colors.cyan };
-        HopUnmatched { Whitespace };
+        HopNextKey { fg = colors.highlight, gui = 'bold' },
+        HopNextKey1 { fg = colors.highlight },
+        HopNextKey2 { fg = colors.cyan },
+        HopUnmatched { Whitespace },
 
-        Sneak { Search };
-        SneakLabel { IncSearch };
-        SneakScope { Title };
+        Sneak { Search },
+        SneakLabel { IncSearch },
+        SneakScope { Title },
 
-        LeapMatch { fg = colors.cyan, gui = 'bold' };
-        LeapLabelPrimary { fg = colors.highlight, gui = 'bold' };
-        -- LeapLabelSecondary {fg = colors.cyan};
-        -- LeapLabelSelected {fg = colors.cyan};
-        LeapBackdrop { Whitespace };
+        LeapMatch { fg = colors.cyan, gui = 'bold' },
+        LeapLabelPrimary { fg = colors.highlight, gui = 'bold' },
+        -- LeapLabelSecondary {fg = colors.cyan},
+        -- LeapLabelSelected {fg = colors.cyan},
+        LeapBackdrop { Whitespace },
 
-        -- rainbowParensShell16 {};
-        -- rainbowParensShell15 {};
-        -- rainbowParensShell14 {};
-        -- rainbowParensShell13 {};
-        -- rainbowParensShell12 {};
-        -- rainbowParensShell11 {};
-        -- rainbowParensShell10 {};
-        -- rainbowParensShell9 {};
-        -- rainbowParensShell8 {};
-        -- rainbowParensShell7 {};
-        -- rainbowParensShell6 {};
-        -- rainbowParensShell5 {};
-        -- rainbowParensShell4 {fg = magenta};
-        -- rainbowParensShell3 {fg = cyan};
-        -- rainbowParensShell2 {fg = red};
-        -- rainbowParensShell1 {Whitespace};
-
+        rainbowcol7 { fg = colors.blue },
+        rainbowcol6 { fg = colors.magenta_light },
+        rainbowcol5 { fg = colors.orange_light },
+        rainbowcol4 { fg = colors.green_light },
+        rainbowcol3 { fg = colors.red_light },
+        rainbowcol2 { fg = colors.cyan_light },
+        rainbowcol1 { Whitespace },
     }
 end)
 
