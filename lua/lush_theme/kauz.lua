@@ -84,7 +84,7 @@ local theme = lush(function(injected_functions)
         SignColumn { fg = 'NONE' }, -- column where |signs| are displayed
         LineNr { fg = colors.concealed }, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
         CursorLineNr { fg = colors.concealed, gui = 'bold' }, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
-        MatchParen { fg = colors.black, bg = colors.highlight, gui = 'bold' }, -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
+        MatchParen { fg = colors.highlight, gui = 'bold' }, -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
         -- ModeMsg      { }, -- 'showmode' message (e.g., "-- INSERT -- ")
         -- MsgArea      { }, -- Area for messages and cmdline
         -- MsgSeparator {fg = fg}, -- Separator for scrolled messages, `msgsep` flag of 'display'
