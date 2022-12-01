@@ -255,6 +255,7 @@ local theme = lush(function(injected_functions)
         sym '@constant.builtin' { BuiltinConstant },
         sym '@variable.builtin' { BuiltinConstant },
         sym '@function.builtin' { Normal },
+        sym '@tag' { fg = colors.blue_light },
 
         TelescopeSelection { Title }, -- selected item
         TelescopeSelectionCaret { fg = colors.highlight, gui = 'bold' }, -- selection caret
