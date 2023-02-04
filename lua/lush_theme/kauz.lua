@@ -241,6 +241,7 @@ local theme = lush(function(injected_functions)
         TSVariableBuiltin { Normal },
 
         typescriptNull { Normal },
+        typescriptDestructureVariable { Normal },
 
         -- treesitter highlights
         sym '@include' { PreProc },
