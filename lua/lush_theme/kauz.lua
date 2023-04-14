@@ -1,46 +1,3 @@
---
--- Built with,
---
---        ,gggg,
---       d8" "8I                         ,dPYb,
---       88  ,dP                         IP'`Yb
---    8888888P"                          I8  8I
---       88                              I8  8'
---       88        gg      gg    ,g,     I8 dPgg,
---  ,aa,_88        I8      8I   ,8'8,    I8dP" "8I
--- dP" "88P        I8,    ,8I  ,8'  Yb   I8P    I8
--- Yb,_,d88b,,_   ,d8b,  ,d8b,,8'_   8) ,d8     I8,
---  "Y8P"  "Y888888P'"Y88P"`Y8P' "YY8P8P88P     `Y8
---
-
--- This is a starter colorscheme for use with Lush,
--- for usage guides, see :h lush or :LushRunTutorial
-
---
--- Note: Because this is lua file, vim will append your file to the runtime,
---       which means you can require(...) it in other lua code (this is useful),
---       but you should also take care not to conflict with other libraries.
---
---       (This is a lua quirk, as it has somewhat poor support for namespacing.)
---
---       Basically, name your file,
---
---       "super_theme/lua/lush_theme/super_theme_dark.lua",
---
---       not,
---
---       "super_theme/lua/dark.lua".
---
---       With that caveat out of the way...
---
-
--- Enable lush.ify on this file, run:
---
---  `:Lushify`
---
---  or
---
---  `:lua require('lush').ify()`
 local lush = require('lush');
 local colors = require('colors').hsl;
 
@@ -49,18 +6,6 @@ local theme = lush(function(injected_functions)
     local sym = injected_functions.sym
 
     return {
-        -- The following are all the Neovim default highlight groups from the docs
-        -- as of 0.5.0-nightly-446, to aid your theme creation. Your themes should
-        -- probably style all of these at a bare minimum.
-        --
-        -- Referenced/linked groups must come before being referenced/lined,
-        -- so the order shown ((mostly) alphabetical) is likely
-        -- not the order you will end up with.
-        --
-        -- You can uncomment these and leave them empty to disable any
-        -- styling for that group (meaning they mostly get styled as Normal)
-        -- or leave them commented to apply vims default colouring or linking.
-
         Comment { fg = colors.gray11_warm }, -- any comment
         ColorColumn { bg = colors.concealed }, -- used for the columns set with 'colorcolumn'
         Conceal { fg = colors.concealed }, -- placeholder characters substituted for concealed text (see 'conceallevel')
@@ -193,10 +138,6 @@ local theme = lush(function(injected_functions)
         GitSignsDeleteNr { GitSignsDelete },
         GitSignsDeleteLn { diffRemoved },
 
-        -- These groups are for the native LSP client. Some other LSP clients may
-        -- use these groups, or use their own. Consult your LSP client's
-        -- documentation.
-
         LspReferenceText { bg = colors.cyan, fg = colors.black }, -- used for highlighting "text" references
         LspReferenceRead { LspReferenceText }, -- used for highlighting "read" references
         LspReferenceWrite { LspReferenceText }, -- used for highlighting "write" references
@@ -204,7 +145,7 @@ local theme = lush(function(injected_functions)
         LspDiagnosticsDefaultError { fg = colors.yellow, bg = colors.red_dark }, -- Used as the base highlight group. Other LspDiagnostic highlights link to this by default (except Underline)
         LspDiagnosticsDefaultWarning { fg = colors.yellow, gui = 'undercurl' }, -- Used as the base highlight group. Other LspDiagnostic highlights link to this by default (except Underline)
         LspDiagnosticsDefaultInformation { fg = colors.cyan_light.desaturate(30), gui = 'underline' }, -- Used as the base highlight group. Other LspDiagnostic highlights link to this by default (except Underline)
-        LspDiagnosticsDefaultHint { fg = 'NONE', gui = 'underline' }, -- Used as the base highlight group. Other LspDiagnostic highlights link to this by default (except Underline)
+        LspDiagnosticsDefaultHint { fg = colors.yellow, gui = 'underline' }, -- Used as the base highlight group. Other LspDiagnostic highlights link to this by default (except Underline)
 
         LspDiagnosticsVirtualTextError { LspDiagnosticsDefaultError }, -- Used for "Error" diagnostic virtual text
         LspDiagnosticsVirtualTextWarning { LspDiagnosticsDefaultWarning }, -- Used for "Warning" diagnostic virtual text
@@ -227,36 +168,55 @@ local theme = lush(function(injected_functions)
         LspDiagnosticsSignHint { fg = LspDiagnosticsDefaultHint.fg, gui = 'NONE' }, -- Used for "Hint" signs in sign column
 
         -- old treesitter highlights, here for backwards compatibility
-        TSConstructor { Normal },
-        TSConstant { Constant },
-        TSConstBuiltin { Special },
-        TSFuncBuiltin { Whitespace },
-        TSInclude { Statement },
-        TSNote { Todo },
-        TSDanger { WarningMsg },
-        TSProperty { Normal },
-        TSPunctSpecial { Whitespace },
-        TSStringEscape { SpecialChar },
-        TSVariable { Normal },
-        TSVariableBuiltin { Normal },
+        -- TSConstructor { Normal },
+        -- TSConstant { Constant },
+        -- TSConstBuiltin { Special },
+        -- TSFuncBuiltin { Whitespace },
+        -- TSInclude { Statement },
+        -- TSNote { Todo },
+        -- TSDanger { WarningMsg },
+        -- TSProperty { Normal },
+        -- TSPunctSpecial { Whitespace },
+        -- TSStringEscape { SpecialChar },
+        -- TSVariable { Normal },
+        -- TSVariableBuiltin { Normal },
 
-        typescriptNull { Normal },
-        typescriptDestructureVariable { Normal },
+        -- typescriptNull { Normal },
+
+        -- CopilotAnnotation { Warning },
+        -- CopilotSuggestion { Warning },
 
         -- treesitter highlights
-        sym '@include' { PreProc },
-        sym '@preproc' { PreProc },
-        sym '@variable' { Normal },
-        sym '@constructor' { Normal },
-        sym '@property' { Normal },
-        sym '@text.note' { Todo },
-        sym '@text.warning' { Todo },
-        sym '@text.danger' { Warning },
-        sym '@type.builtin' { Type },
-        sym '@constant.builtin' { BuiltinConstant },
-        sym '@variable.builtin' { BuiltinConstant },
-        sym '@function.builtin' { Normal },
-        sym '@tag' { fg = colors.blue_light },
+        sym('@include') { PreProc },
+        sym('@preproc') { PreProc },
+        sym'@variable' { Normal },
+        sym('@constructor') { Normal },
+        sym('@property') { Normal },
+        sym('@text.note') { Todo },
+        sym('@text.warning') { Todo },
+        sym('@text.danger') { Warning },
+        sym('@type.builtin') { Type },
+        sym('@type.qualifier') { Statement },
+        sym('@constant.builtin') { BuiltinConstant },
+        sym('@variable.builtin') { BuiltinConstant },
+        sym('@function.builtin') { Normal },
+        sym('@tag') { fg = colors.blue_light },
+
+        sym('@lsp.type.variable') { },
+        -- @lsp.type.class         Structure
+        -- @lsp.type.decorator     Function
+        -- @lsp.type.enum          Structure
+        -- @lsp.type.enumMember    Constant
+        -- @lsp.type.function      Function
+        -- @lsp.type.interface     Structure
+        -- @lsp.type.macro         Macro
+        -- @lsp.type.method        Function
+        -- @lsp.type.namespace     Structure
+        -- @lsp.type.parameter     Identifier
+        -- @lsp.type.property      Identifier
+        -- @lsp.type.struct        Structure
+        -- @lsp.type.type          Type
+        -- @lsp.type.typeParameter TypeDef
 
         TelescopeSelection { Title }, -- selected item
         TelescopeSelectionCaret { fg = colors.highlight, gui = 'bold' }, -- selection caret
