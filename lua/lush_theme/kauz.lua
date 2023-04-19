@@ -29,7 +29,7 @@ local theme = lush(function(injected_functions)
         SignColumn { fg = 'NONE' }, -- column where |signs| are displayed
         LineNr { fg = colors.concealed }, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
         CursorLineNr { fg = colors.concealed, gui = 'bold' }, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
-        MatchParen { fg = colors.highlight, gui = 'bold' }, -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
+        MatchParen { gui = 'bold' }, -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
         -- ModeMsg      { }, -- 'showmode' message (e.g., "-- INSERT -- ")
         -- MsgArea      { }, -- Area for messages and cmdline
         -- MsgSeparator {fg = fg}, -- Separator for scrolled messages, `msgsep` flag of 'display'
@@ -167,6 +167,8 @@ local theme = lush(function(injected_functions)
         LspDiagnosticsSignInformation { fg = LspDiagnosticsDefaultInformation.fg, gui = 'NONE' }, -- Used for "Information" signs in sign column
         LspDiagnosticsSignHint { fg = LspDiagnosticsDefaultHint.fg, gui = 'NONE' }, -- Used for "Hint" signs in sign column
 
+        DiagnosticUnnecessary { gui = 'italic' }, -- Used for "Hint" signs in sign column
+
         -- old treesitter highlights, here for backwards compatibility
         -- TSConstructor { Normal },
         -- TSConstant { Constant },
@@ -202,7 +204,10 @@ local theme = lush(function(injected_functions)
         sym('@function.builtin') { Normal },
         sym('@tag') { fg = colors.blue_light },
 
-        sym('@lsp.type.variable') { },
+        sym('@text.diff.add.diff') {diffAdded},
+        sym('@text.diff.delete.diff') {diffRemoved},
+
+        -- sym('@lsp.type.variable') { },
         -- @lsp.type.class         Structure
         -- @lsp.type.decorator     Function
         -- @lsp.type.enum          Structure
@@ -260,13 +265,14 @@ local theme = lush(function(injected_functions)
         -- LeapLabelSelected {fg = colors.cyan},
         LeapBackdrop { Whitespace },
 
-        rainbowcol7 { fg = colors.blue },
-        rainbowcol6 { fg = colors.magenta_light },
-        rainbowcol5 { fg = colors.orange_light },
-        rainbowcol4 { fg = colors.green_light },
-        rainbowcol3 { fg = colors.red_light },
-        rainbowcol2 { fg = colors.cyan_light },
-        rainbowcol1 { Whitespace },
+        TSRainbowNormal {Whitespace},
+        TSRainbowRed { fg = colors.red_light },
+        TSRainbowGreen { fg = colors.green },
+        TSRainbowYellow { fg = colors.yellow_light },
+        TSRainbowCyan { fg = colors.cyan},
+        TSRainbowViolet { fg = colors.magenta_light },
+        TSRainbowBlue { fg = colors.blue },
+        TSRainbowOrange { fg = colors.orange },
     }
 end)
 
