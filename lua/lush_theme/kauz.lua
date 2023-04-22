@@ -207,7 +207,10 @@ local theme = lush(function(injected_functions)
         sym('@text.diff.add.diff') {diffAdded},
         sym('@text.diff.delete.diff') {diffRemoved},
 
-        -- sym('@lsp.type.variable') { },
+        -- lsp semantic tokens appear to be worse than treesitter tokens, so I'm disabling them
+        sym('@lsp.type.variable') { },
+        sym('@lsp.type.namespace') { },
+
         -- @lsp.type.class         Structure
         -- @lsp.type.decorator     Function
         -- @lsp.type.enum          Structure
