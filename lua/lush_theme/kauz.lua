@@ -169,6 +169,9 @@ local theme = lush(function(injected_functions)
 
         DiagnosticUnnecessary { gui = 'italic' }, -- Used for "Hint" signs in sign column
 
+        BreakPointSet { fg = colors.cyan },
+        BreakPointActive { fg = colors.green },
+
         -- old treesitter highlights, here for backwards compatibility
         -- TSConstructor { Normal },
         -- TSConstant { Constant },
