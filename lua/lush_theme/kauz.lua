@@ -279,6 +279,10 @@ local theme = lush(function(injected_functions)
         TSRainbowViolet { fg = colors.magenta_light },
         TSRainbowBlue { fg = colors.blue },
         TSRainbowOrange { fg = colors.orange },
+
+        NotificationInfo  { Normal },
+        NotificationError { Error },
+        NotificationWarning { Warning },
     }
 end)
 
