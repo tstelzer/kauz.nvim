@@ -79,7 +79,7 @@ local theme = lush(function(injected_functions)
         Boolean { fg = String.fg.rotate(-30).saturate(20), gui = 'bold' }, --  a boolean constant: TRUE, false
 
         Identifier { Normal }, -- (preferred) any variable name
-        -- Function       {}, -- function name (also: methods for classes)
+        Function {Normal }, -- function name (also: methods for classes)
 
         Statement { fg = colors.faded }, -- (preferred) any statement
         -- Conditional    { }, --  if, then, else, endif, switch, etc.
