@@ -194,7 +194,7 @@ local theme = lush(function(injected_functions)
         -- treesitter highlights
         sym('@include') { PreProc },
         sym('@preproc') { PreProc },
-        sym'@variable' { Normal },
+        sym('@variable') { Normal },
         sym('@constructor') { Normal },
         sym('@property') { Normal },
         sym('@text.note') { Todo },
@@ -211,8 +211,7 @@ local theme = lush(function(injected_functions)
         sym('@text.diff.delete.diff') {diffRemoved},
 
         -- lsp semantic tokens appear to be worse than treesitter tokens, so I'm disabling them
-        sym('@lsp.type.variable') { },
-        sym('@lsp.type.namespace') { },
+        sym('@lsp.type') { },
 
         -- @lsp.type.class         Structure
         -- @lsp.type.decorator     Function
