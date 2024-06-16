@@ -283,6 +283,8 @@ local theme = lush(function(injected_functions)
         NotificationInfo  { Normal },
         NotificationError { Error },
         NotificationWarning { Warning },
+
+        Twilight { fg = colors.faded },
     }
 end)
 
