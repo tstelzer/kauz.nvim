@@ -210,6 +210,9 @@ local theme = lush(function(injected_functions)
         sym('@text.diff.add.diff') {diffAdded},
         sym('@text.diff.delete.diff') {diffRemoved},
 
+        sym('@type.sql') { Normal },
+        sym('@type.builtin.sql') { Normal },
+
         -- lsp semantic tokens appear to be worse than treesitter tokens, so I'm disabling them
         sym('@lsp.type') { },
 
