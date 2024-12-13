@@ -143,6 +143,7 @@ local theme = lush(function(injected_functions)
         LspReferenceWrite { LspReferenceText }, -- used for highlighting "write" references
 
         LspDiagnosticsDefaultError { fg = colors.yellow, bg = colors.red_dark }, -- Used as the base highlight group. Other LspDiagnostic highlights link to this by default (except Underline)
+        DiagnosticUnderlineError {LspDiagnosticsDefaultError},
         LspDiagnosticsDefaultWarning { fg = colors.yellow, gui = 'undercurl' }, -- Used as the base highlight group. Other LspDiagnostic highlights link to this by default (except Underline)
         LspDiagnosticsDefaultInformation { fg = colors.cyan_light.desaturate(30), gui = 'underline' }, -- Used as the base highlight group. Other LspDiagnostic highlights link to this by default (except Underline)
         LspDiagnosticsDefaultHint { fg = colors.yellow, gui = 'underline' }, -- Used as the base highlight group. Other LspDiagnostic highlights link to this by default (except Underline)
@@ -267,11 +268,9 @@ local theme = lush(function(injected_functions)
         SneakLabel { IncSearch },
         SneakScope { Title },
 
-        LeapMatch { fg = colors.cyan, gui = 'bold' },
-        LeapLabelPrimary { fg = colors.highlight, gui = 'bold' },
-        -- LeapLabelSecondary {fg = colors.cyan},
-        -- LeapLabelSelected {fg = colors.cyan},
-        LeapBackdrop { Whitespace },
+        -- LeapMatch {},
+        -- LeapLabel {},
+        -- LeapBackdrop {},
 
         TSRainbowNormal {Whitespace},
         TSRainbowRed { fg = colors.red_light },
@@ -287,6 +286,7 @@ local theme = lush(function(injected_functions)
         NotificationWarning { Warning },
 
         Twilight { fg = colors.faded },
+        SnacksDim { Conceal },
     }
 end)
 
