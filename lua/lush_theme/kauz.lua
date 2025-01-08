@@ -287,6 +287,7 @@ local theme = lush(function(injected_functions)
 
         Twilight { fg = colors.faded },
         SnacksDim { Conceal },
+        BlinkCmpGhost { Conceal },
     }
 end)
 
