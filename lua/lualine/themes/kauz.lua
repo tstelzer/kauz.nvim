@@ -1,34 +1,16 @@
 local colors = require('colors').colors;
 
+local defaults = {
+    a = {bg = colors.bg_dark, fg = colors.fg},
+    b = {bg = colors.bg_dark, fg = colors.fg},
+    c = {bg = colors.bg_dark, fg = colors.fg}
+  };
+
 return {
-  normal = {
-    a = {bg = colors.bg_light, fg = colors.fg_light, gui = 'bold'},
-    b = {bg = colors.bg_dark, fg = colors.fg},
-    c = {bg = colors.bg_dark, fg = colors.fg}
-  },
-  insert = {
-    a = {bg = colors.bg_light, fg = colors.fg_light, gui = 'bold'},
-    b = {bg = colors.bg_dark, fg = colors.fg},
-    c = {bg = colors.bg_dark, fg = colors.fg}
-  },
-  visual = {
-    a = {bg = colors.bg_light, fg = colors.fg_light, gui = 'bold'},
-    b = {bg = colors.bg_dark, fg = colors.fg},
-    c = {bg = colors.bg_dark, fg = colors.fg}
-  },
-  replace = {
-    a = {bg = colors.bg_light, fg = colors.fg_light, gui = 'bold'},
-    b = {bg = colors.bg_dark, fg = colors.fg},
-    c = {bg = colors.bg_dark, fg = colors.fg}
-  },
-  command = {
-    a = {bg = colors.bg_light, fg = colors.fg_light, gui = 'bold'},
-    b = {bg = colors.bg_dark, fg = colors.fg},
-    c = {bg = colors.bg_dark, fg = colors.fg}
-  },
-  inactive = {
-    a = {bg = colors.bg_light, fg = colors.fg_light, gui = 'bold'},
-    b = {bg = colors.bg_dark, fg = colors.fg},
-    c = {bg = colors.bg_dark, fg = colors.fg}
-  }
+  normal = defaults,
+  insert = defaults,
+  visual = defaults,
+  replace = defaults,
+  command = defaults,
+  inactive = defaults,
 }
