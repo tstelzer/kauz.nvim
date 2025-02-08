@@ -288,6 +288,8 @@ local theme = lush(function(injected_functions)
         Twilight { fg = colors.faded },
         SnacksDim { Conceal },
         BlinkCmpGhost { Conceal },
+
+        MiniCursorword { bg = colors.blue_dark},
     }
 end)
 
