@@ -57,6 +57,7 @@ local green_dark = '#2e4224'
 local green = '#73a659'
 local green_light = '#bbe9a5'
 
+local blue_darker = '#082038'
 local blue_dark = '#0d365e'
 local blue = '#407fbf'
 local blue_light = '#b3cce6'
